@@ -1,0 +1,19 @@
+{
+  "me": {
+    "id": 1,
+    "Name": "Lin",
+    "Phone": "049-29111111",
+    "email": "test123@mail.com",
+    "Role": "G"
+  },
+  "images": [
+    {
+      "id": 1,
+      "src": "img/圖片1.jpg"
+    },
+    {
+      "id": 2,
+      "src": "img/圖片2.jpg"
+    }
+  ]
+}

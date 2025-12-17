@@ -1,0 +1,142 @@
+@import 'func.styl'
+
+*
+    font-family 'Roboto', 'Microsoft JhengHei', sans-serif !important
+
+body 
+	background-color white !important
+
+.primarydColor
+    background-color #E5D6A4 !important
+
+ .secondColor   
+   background-color #E4DFCE !important
+
+.primaryColorM
+   background-color #F8D7CB !important
+.tableColor
+	background-color: #EFE9E4 !important
+
+    
+
+
+F-w(186)
+F-mw(2560)
+F-mw(1920)
+F-mw(1680)
+F-mw(1440)
+F-mw(1366)
+F-mw(1280)
+F-mw(1024)
+F-mw(960)
+F-mw(800)
+F-mw(600)
+
+
+.fw-screen
+	margin 0 auto
+// border
+.fw-b
+	F-border(2, #7F7F7F)
+.fw-b-bottom
+	F-border(2, #7F7F7F, bottom)
+
+.fw-relative
+	position relative
+.fw-absolute
+	position absolute
+.fw-fixed
+	position fixed
+.fw-sticky
+	position sticky
+	z-index 1
+.fw-flex
+	display flex
+.fw-flex-1
+	flex 1
+
+.fw-a
+	text-decoration none
+	&:hover
+		text-decoration underline
+		cursor pointer
+.fw-a_no
+	text-decoration none
+	cursor pointer
+.fw-underline
+	text-decoration underline
+
+.fw-h-underline:hover
+	text-decoration underline
+	cursor pointer
+.fw-c-pointer
+	cursor pointer
+
+.fw-bold
+	font-weight bold
+
+.fw-hr
+	border-color #ddd
+.fw-bg-white
+	background-color #FFFFFF
+
+
+.fw-vm
+	display flex
+	align-items center
+	justify-content center
+.fw-flex-column
+	flex-direction column
+.fw-flex-jc-sb
+	justify-content space-between
+.fw-flex-jc-sa
+	justify-content space-around
+.fw-flex-jc-end
+	justify-content flex-end
+.fw-flex-ai-center
+	align-items center
+.fw-flex-as-end
+	align-self flex-end
+.fw-flex-ai-start
+	align-items flex-start
+.fw-flex-jc-c
+	display flex
+	justify-content center
+.fw-totop
+	position fixed
+	right 3%
+	bottom 3%
+	z-index 1
+
+.fw-clear
+	clear both
+
+.fw-float-right
+	float right
+
+.fw-ellipsis
+	text-overflow ellipsis
+	white-space nowrap
+	overflow hidden
+
+.fw-nowrap
+	white-space nowrap
+.fw-keepall
+	word-break keep-all
+.fw-breakall
+	word-break break-all
+
+.fw-checkbox-size
+	width 20px
+	height 20px
+
+@media only screen and (min-width: 740px)
+	.fw-hide-740
+		display none
+
+@media only screen and (max-width: 600px)
+	.fw-banner
+		h1
+			font-size 1.5em
+		h2
+			font-size 1em

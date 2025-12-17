@@ -1,0 +1,54 @@
+@media print
+  #intactFormTable
+    // 列印不顯示
+    #step2Tips,
+    .noprint
+      display none !important
+    // 只有列印時顯示
+    .only-t-print
+      display table !important
+    .only-print
+      display inherit !important
+
+    // 字體大小
+    h1,
+    h4
+      font-size 16px
+    // .fw-t,
+    // [class^=fw-t-all]
+    //   *
+    //     font-size 12px
+      // 邊距
+      // caption
+      // th
+      // td
+        // padding 2px 5px
+      // 不換行
+      .fw-nowrap
+        white-space normal
+
+    // Xbar卷軸
+    .w3-responsive
+      overflow-x visible
+      [class^=fw-t-all]
+        table-layout fixed
+
+    // 垂直文字
+    [class^=fw-writing-mode]
+      height auto
+      & > span
+        writing-mode horizontal-tb
+
+    // 細項
+    h1
+      margin-top 5px
+      margin-bottom 5px
+    .w3-section
+      margin-top 5px !important
+      margin-bottom 5px !important
+
+    // 列印參數
+    @page
+      size A4 landscape
+      margin 3mm
+

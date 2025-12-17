@@ -1,0 +1,125 @@
+@import 'func.styl'
+@import 'range.css'
+
+#formTableBuilding
+	input[type=number]::-webkit-outer-spin-button,
+	input[type=number]::-webkit-inner-spin-button
+		appearance none // chrome
+	input[type=number]
+		appearance textfield // firefox
+
+.fw-ctrlDisabled
+	appearance none
+
+.fw-t
+	border-collapse collapse
+	border-spacing 0
+	width 100%
+	display table
+	caption
+	th
+	td
+		// padding 5px
+		padding 2px 3px
+		vertical-align middle
+	th
+	td
+		display table-cell
+	td
+		min-width 80px
+		word-wrap break-word
+		input
+			border-width 1px
+
+#intactFormTable
+	& .fw-t,
+	& [class^=fw-t-all]
+		*
+			font-size 12px
+
+.fw-b-double
+	border-style double
+
+F-t-b('light-gray', #cbcbcb)
+F-t-b('gray', #808080)
+F-t-b_ed('light-gray', #cbcbcb)
+F-t-b_ed('gray', #808080)
+F-t-b_row('light-gray', #cbcbcb)
+F-t-b_row('gray', #808080)
+F-t-all('light-gray', #cbcbcb)
+F-t-all('gray', #808080)
+
+F-t-b('primary', #998A58)
+F-t-b_ed('primary', #998A58)
+F-t-b_row('primary', #998A58)
+F-t-all('primary', #998A58)
+
+.fw-tr-h tr
+	&:hover
+		background-color #d3d3d3
+.fw-td-h
+	tbody tr td
+		&:hover
+			background-color #ccc
+	.w3-ul& li td
+		&:hover
+			background-color #ccc
+
+F-th-bc('gray', #e0e0e0)
+F-th-bc('pale-blue', #ddffff)
+
+// padding
+F-padding(5)
+F-padding(10)
+F-padding(20)
+F-padding(50)
+F-paddingLeft(10)
+F-paddingLeft(20)
+F-paddingLeft(40)
+F-paddingTop(5)
+F-paddingTop(10)
+F-paddingTop(20)
+F-paddingTop(40)
+F-paddingTop(50)
+F-paddingBottom(30)
+// margin
+F-marginLeft(10)
+F-marginLeft(30)
+F-marginLeft(100)
+F-marginRight(10)
+F-marginRight(20)
+F-marginTop(30)
+F-marginTop(20)
+F-marginTop(50)
+F-marginTop(10)
+F-marginTop(5)
+F-marginBottom(5)
+F-marginBottom(20)
+
+.fw-t-layout
+	table-layout fixed
+
+.fw-w-fit
+	width fit-content
+.fw-h-fit
+	height fit-content
+for num in 0..100
+	.fw-w-{num}
+		width unit(num, '%')
+	.fw-h-{num}
+		height unit(num, '%')
+for num in 0..100
+	if num % 5 == 0 && num > 0
+		.fw-mw-{num}
+			max-width unit(num, '%')
+
+F-writing-mode('lr')
+F-writing-mode('rl')
+
+// F-lineBar(top, 'green', #4CAF50)
+
+.only-t-print,
+.only-print
+	display none !important
+
+@import 'table-print.styl'

@@ -1,0 +1,15 @@
+[ {
+    "name" :"主功能",
+    "content": [
+      {
+        "name": "首頁",
+        "Icon": "HomeIcon",
+        "page": "/"
+      },
+      {
+        "name": "填報成果",
+        "Icon": "ListAltIcon",
+        "page": "/admin/resultStatus"
+      }
+      ]
+}]

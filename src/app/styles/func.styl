@@ -1,0 +1,125 @@
+F-border(size, color=#000, position='')
+  $position = position != '' ? '-'+position : ''
+  $width = unit(size, px)
+  if (size > 0)
+    $params = $width solid color
+  else
+    $params = 0
+  border{$position} $params !important
+
+F-t-b(name, color)
+	.fw-t-b-{name}
+    // border 2px
+    F-border(2, color)
+    & > thead
+      & > tr
+        & > th
+          F-border(1, color)
+        & > td
+          F-border(1, color, left)
+    & > tbody,
+    & > tfoot
+      & > tr
+        & > th
+          F-border(1, color)
+        & > td
+          F-border(1, color, left)
+F-t-b_ed(name, color)
+  .fw-t-b_ed-{name}
+    & > thead
+      & > tr
+        F-border(1, color, bottom)
+    & > tbody,
+    & > tfoot
+      & > tr
+        F-border(1, color, bottom)
+F-t-b_row(name, color)
+  .fw-t-b_row-{name}
+    @extend .fw-t-b_ed-{name}
+    & > tbody,
+    & > tfoot
+      & > tr
+        & > td
+          F-border(0, '', left)
+F-t-all(name, color)
+  .fw-t-all-{name}
+    @extend .fw-t
+    @extend .fw-t-b-{name}
+    @extend .fw-t-b_ed-{name}
+
+F-th-bc(name, color)
+  .fw-th-{name}
+    & > thead,
+    & > tbody,
+    & > tfoot
+      & > tr > th
+        background-color color
+
+F-w(width)
+  .fw-w-{width}
+    width unit(width, px)
+
+
+F-mw(width)
+  .fw-mw-{width}
+    max-width unit(width, px)
+    td.addRow
+      position relative
+      & > button
+        position relative
+        top 0
+        left 0
+
+F-writing-mode(direction='lr')
+  $direction = (vertical-)+direction
+  .fw-writing-mode-{direction}
+    height fit-content
+    & > span
+      writing-mode $direction
+
+F-lineBar(position, name='black', color=#000)
+  .fw-{position}bar-{name}
+    F-border(6, color, position)
+
+F-padding(pd)
+  .fw-pd-{pd}
+    padding unit(pd, px) !important
+F-paddingLeft(pd)
+  .fw-pdleft-{pd}
+    padding-left unit(pd, px) !important
+F-paddingRight(pd)
+  .fw-pdright-{pd}
+    padding-right:  unit(pd, px) !important
+F-paddingTop(pd)
+  .fw-pdtop-{pd}
+    padding-top unit(pd, px) !important
+F-paddingBottom(pd)
+  .fw-pdbottom-{pd}
+    padding-bottom unit(pd, px) !important
+
+F-marginTop(pd)
+  .fw-mgtop-{pd}
+    margin-top unit(pd, px) !important
+F-marginBottom(pd)
+  .fw-mgbot-{pd}
+    margin-bottom:  unit(pd, px) !important
+F-marginLeft(pd)
+  .fw-mgleft-{pd}
+    margin-left unit(pd, px) !important
+F-marginRight(pd)
+  .fw-mgright-{pd}
+    margin-right unit(pd, px) !important
+
+F-mark-ol(listStyleType='decimal')
+  list-style-type none
+  counter-reset list
+  padding-inline-start 25px
+  & > li
+    position relative
+    left 1em
+    padding-left 0.5em
+    &:before
+      content "("counter(list, listStyleType)")"
+      counter-increment list
+      position absolute
+      left -1.5em

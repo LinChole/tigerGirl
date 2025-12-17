@@ -1,0 +1,17 @@
+[
+  {
+    "name": "主功能",
+    "content": [
+      {
+        "name": "首頁",
+        "Icon": "HomeIcon",
+        "page": "/"
+      },
+      {
+        "name": "預約",
+        "Icon": "TodayIcon",
+        "page": "/MyBookings"
+      }
+    ]
+  }
+]
