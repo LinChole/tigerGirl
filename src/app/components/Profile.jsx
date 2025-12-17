@@ -11,8 +11,7 @@ import Button from './statics/Button'
 const styles = {
   side: {
     position: 'fixed',
-    // top: 55 + 140,
-    top: 25 + 140,
+    top: 55,
     right: 8,
     minWidth: 215,
     zIndex: 2

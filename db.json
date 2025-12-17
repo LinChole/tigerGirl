@@ -1,19 +1,29 @@
 {
   "me": {
-    "id": 1,
+    "uid": 1,
     "Name": "Lin",
     "Phone": "049-29111111",
     "email": "test123@mail.com",
-    "Role": "G"
+    "Role": "C"
   },
-  "images": [
+  "schedules": [
     {
-      "id": 1,
-      "src": "img/圖片1.jpg"
+      "uid": 1,
+      "date": "2024-07-01",
+      "service": "睫毛嫁接",
+      "status": 0
     },
     {
-      "id": 2,
-      "src": "img/圖片2.jpg"
+      "uid": 1,
+      "date": "2025-12-25 16:00",
+      "service": "補睫毛",
+      "status": 1
+    },
+    {
+      "uid": 1,
+      "date": "2025-12-05 15:00",
+      "service": "補睫毛",
+      "status": 2
     }
   ]
 }

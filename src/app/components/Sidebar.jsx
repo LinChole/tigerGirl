@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: theme.mixins.toolbar,
   banner: {
-    padding: theme.spacing(14, 0)
+    padding: theme.spacing(5, 0)
   },
 }));
 

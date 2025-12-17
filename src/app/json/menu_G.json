@@ -1,5 +1,6 @@
-[ {
-    "name" :"主功能",
+[
+  {
+    "name": "主功能",
     "content": [
       {
         "name": "首頁",
@@ -7,9 +8,10 @@
         "page": "/"
       },
       {
-        "name": "填報成果",
+        "name": "預約管理",
         "Icon": "ListAltIcon",
         "page": "/admin/resultStatus"
       }
-      ]
-}]
+    ]
+  }
+]

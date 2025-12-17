@@ -1,6 +1,6 @@
 import { delay } from 'redux-saga'
 import { put, call, select } from 'redux-saga/effects'
-import axiosProps from '../library/api_test'
+import axiosProps from '../library/api'
 import { ipDevHost, ipProHost } from 'Config'
 
 const ipHost = process.env.NODE_ENV === 'development' ? ipDevHost : ipProHost

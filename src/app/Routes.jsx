@@ -11,6 +11,7 @@ import Home from "./containers/clients/FWHome"
 import Login from "./containers/FWLogin"
 
 // C
+import Schedule from "./containers/clients/FWSchedule"
 import Bookings from "./containers/clients/FWBookings"
 
 // G
@@ -23,7 +24,8 @@ const ROUTE_CONFIG = {
     basePath: '/',
     routes: [
       { path: '/', exact: true, component: Home },
-      { path: '/booking', exact: true, component: Bookings },
+      { path: '/schedule', exact: true, component: Schedule },
+      { path: '/bookings', exact: true, component: Bookings },
       // { path: '/booking/:id', exact: true, component: BookingDetail },
       // { path: '/profile', exact: true, component: Profile },
       // { path: '/settings', exact: true, component: UserSettings },

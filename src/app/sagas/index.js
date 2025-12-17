@@ -25,6 +25,9 @@ import * as logout from './sign'
 //首頁
 import * as slidesImages from './homePage'
 
+// schedule 歷史預約紀錄
+import * as schedule from './schedule'
+
 
 
 export default function* rootSaga() {
@@ -38,5 +41,8 @@ export default function* rootSaga() {
   //首頁
   //-輪播圖片
   yield takeEvery(actions.GET_HOME_PAGE_IMAGES, slidesImages.GetHomePageImages)
+
+  // schedule 歷史預約紀錄
+  yield takeEvery(actions.GET_SCHEDULE, schedule.GetSchedule)
 
 }

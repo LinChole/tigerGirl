@@ -1,8 +1,8 @@
 import axios from "axios";
 
 import Config from 'Config'
-const ipHost = process.env.NODE_ENV === 'development' ? Config.devHost : Config.proHost
-const { devHost, proHost, cors } = Config;
+
+const { devHost, proHost, cors } = Config
 export default function ({
   cmd,
   method = "GET",
@@ -14,7 +14,7 @@ export default function ({
 }) {
   method = method.toUpperCase();
   type = type.toLowerCase();
-  // let url = `${ipHost}api/${cmd}`;
+
   let option = {
     method,
     headers: {

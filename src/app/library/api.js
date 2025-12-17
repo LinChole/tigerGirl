@@ -1,7 +1,8 @@
 import axios from "axios";
 
-import config from "Config";
-const { cors, devHost, proHost } = config;
+import Config from 'Config'
+const { cors, devHost, proHost } = Config
+
 export default function ({
   cmd,
   method = "GET",
@@ -47,7 +48,8 @@ export default function ({
     url: cmd,
     baseURL: process.env.NODE_ENV === 'development' ? devHost : proHost,
     ...option,
-    withCredentials: !!cors,
+    // withCredentials: !!cors,
+    withCredentials: !cors,
   })
     .then((res) => {
       return {

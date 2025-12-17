@@ -8,9 +8,9 @@
         "page": "/"
       },
       {
-        "name": "預約",
+        "name": "我的預約",
         "Icon": "TodayIcon",
-        "page": "/MyBookings"
+        "page": "/schedule"
       }
     ]
   }

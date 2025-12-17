@@ -22,7 +22,7 @@ import { containerMaxWidth, sidebarWidth } from 'Config'
 const useStyles = makeStyles((theme) => ({
   main: {
     flexGrow: 1,
-    // padding: theme.spacing(3),
+    padding: theme.spacing(3),
     zIndex: 1
   },
   content: {
@@ -105,7 +105,7 @@ function App(props) {
           // marginRight: docked && -sidebarWidth
         }}
       >
-        {/* <div className={classes.toolbar} /> */}
+        <div className={classes.toolbar} />
         {/* <div className={classes.banner} /> */}
         <div className={`fw-screen fw-mw-${containerMaxWidth} w3-white`}>
           <div className="w3-container w3-padding-16">
