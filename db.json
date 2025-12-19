@@ -8,22 +8,125 @@
   },
   "schedules": [
     {
-      "uid": 1,
+      "id": "12",
+      "user": 1,
       "date": "2024-07-01",
       "service": "睫毛嫁接",
       "status": 0
     },
     {
-      "uid": 1,
+      "id": "15",
+      "user": 1,
       "date": "2025-12-25 16:00",
       "service": "補睫毛",
       "status": 1
     },
     {
-      "uid": 1,
-      "date": "2025-12-05 15:00",
-      "service": "補睫毛",
-      "status": 2
+      "id": "49d8",
+      "name": "美睫",
+      "cname": "6D 100根",
+      "dateTime": "2025/12/19 14: 00",
+      "price": "1200"
+    },
+    {
+      "id": "bd39",
+      "name": "體驗班",
+      "dateTime": "2025/12/20 10: 00",
+      "price": 28000
+    },
+    {
+      "id": "1fcd",
+      "name": "霧眉",
+      "dateTime": "2025/12/20 14: 00",
+      "price": "5000"
+    }
+  ],
+  "project": [
+    {
+      "id": "1",
+      "Name": "美睫",
+      "DD": "",
+      "HH": "2",
+      "MM": "",
+      "Price": 1200,
+      "subporject": true
+    },
+    {
+      "id": "2",
+      "Name": "霧眉",
+      "DD": "",
+      "HH": "2",
+      "MM": "",
+      "Price": "5000",
+      "subporject": false
+    },
+    {
+      "id": "3",
+      "Name": "體驗班",
+      "DD": "3",
+      "HH": "",
+      "MM": "",
+      "Price": 28000,
+      "subporject": false
+    },
+    {
+      "id": "4",
+      "Name": "洗眉",
+      "DD": "",
+      "HH": "2",
+      "MM": "20",
+      "Price": 3000,
+      "subporject": false
+    }
+  ],
+  "subproject": [
+    {
+      "id": "1",
+      "pid": 1,
+      "Name": "6D 100根",
+      "DD": "",
+      "HH": "2",
+      "MM": "",
+      "Price": "1200",
+      "subporject": false
+    },
+    {
+      "id": "2",
+      "pid": 1,
+      "Name": "5D 100根",
+      "DD": "",
+      "HH": "2",
+      "MM": "",
+      "Price": "1100",
+      "subporject": false
+    },
+    {
+      "id": "3",
+      "pid": 1,
+      "Name": "設計師款",
+      "DD": "",
+      "HH": "2",
+      "MM": "",
+      "Price": "1000",
+      "subporject": false
+    }
+  ],
+  "availableTimes": [
+    {
+      "id": "1",
+      "dateTime": "2025/12/19 14: 00"
+    },
+    {
+      "id": "2",
+      "dateTime": "2025/12/19 16: 00"
+    },
+    {
+      "id": "3",
+      "dateTime": "2025/12/20 10: 00"
+    },
+    {
+      "id": "4",
+      "dateTime": "2025/12/20 14: 00"
     }
   ]
 }

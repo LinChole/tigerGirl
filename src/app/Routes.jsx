@@ -25,7 +25,7 @@ const ROUTE_CONFIG = {
     routes: [
       { path: '/', exact: true, component: Home },
       { path: '/schedule', exact: true, component: Schedule },
-      { path: '/bookings', exact: true, component: Bookings },
+      { path: '/booking', exact: true, component: Bookings },
       // { path: '/booking/:id', exact: true, component: BookingDetail },
       // { path: '/profile', exact: true, component: Profile },
       // { path: '/settings', exact: true, component: UserSettings },

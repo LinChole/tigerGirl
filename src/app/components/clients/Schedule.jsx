@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@material-ui/core";
 import Loading from '../statics/Loading'
 
 function Schedule(props) {
     const {
-        fetching, items, error,
-        getSchedule
+        fetching, items, error, pfetching,
+        getSchedule, cancelSchedule,
+        openConfirm
     } = props
 
     useEffect(() => {
@@ -13,12 +15,13 @@ function Schedule(props) {
     }, []);
 
 
-    if (fetching || error) return fetching ? <Loading full /> : error;
+    if (fetching || error) return fetching ? <Loading full /> : error
+    if (pfetching || error) return pfetching ? <Loading full /> : error
     return (
         <Container>
             <Typography variant="h4" gutterBottom className='fw-flex fw-flex-jc-sb'>
                 <span>我的預約</span>
-                <Button variant="outlined" color="primary" size="large" >我要預約</Button>
+                <Button variant="outlined" color="primary" size="large" component={Link} to='/booking'>我要預約</Button>
             </Typography>
             <Table>
                 <TableHead>
@@ -38,7 +41,7 @@ function Schedule(props) {
                             <TableCell>{d.date}</TableCell>
                             <TableCell className={d.status === 0 ? 'w3-text-blue' : d.status === 1 ? 'w3-text-green' : 'w3-text-red'}>{d.status_fm}</TableCell>
                             <TableCell>
-                                {d.status === 0 && <Button variant="outlined" color="secondary">取消</Button>}
+                                {d.status === 0 && <Button variant="outlined" color="secondary" onClick={() => openConfirm('確定要取消此筆預約資料嗎?', () => cancelSchedule(d.id))}>取消</Button>}
                             </TableCell>
                         </TableRow>
                     ))}

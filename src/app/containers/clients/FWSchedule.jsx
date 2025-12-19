@@ -1,6 +1,7 @@
 import { connect } from "react-redux"
 import Schedule from "../../components/clients/Schedule"
-import { getSchedule } from "../../actions/schedule"
+import { getSchedule, cancelSchedule } from "../../actions/schedule"
+import { openConfirm } from "../../actions/setting"
 
 
 const mapStateToProps = (state) => ({
@@ -8,5 +9,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    getSchedule
+    getSchedule, cancelSchedule,
+    openConfirm
 })(Schedule)

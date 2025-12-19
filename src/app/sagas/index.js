@@ -28,6 +28,9 @@ import * as slidesImages from './homePage'
 // schedule 歷史預約紀錄
 import * as schedule from './schedule'
 
+// bookin 預約內容
+import * as booking from './booking'
+
 
 
 export default function* rootSaga() {
@@ -42,7 +45,22 @@ export default function* rootSaga() {
   //-輪播圖片
   yield takeEvery(actions.GET_HOME_PAGE_IMAGES, slidesImages.GetHomePageImages)
 
-  // schedule 歷史預約紀錄
+  // schedule
+  // 歷史預約紀錄
   yield takeEvery(actions.GET_SCHEDULE, schedule.GetSchedule)
+  // 取消預約
+  yield takeEvery(actions.CANCEL_SCHEDULE, schedule.CancelSchedule)
+
+  // booking
+  // 選擇服務項目
+  yield takeEvery(actions.GET_PROJECT, booking.GetProject)
+  // 取得服務子項目
+  yield takeEvery(actions.GET_SUBPROJECT, booking.GetSubproject)
+  //取得可選日期時間
+  yield takeEvery(actions.GET_PROJECT_DATETIME, booking.GetProjectDateTime)
+  //確認預約資料
+  yield takeEvery(actions.GET_PROJECT_CONFIRM, booking.GetProjectConfirm)
+  // 送出預約內容
+  yield takeEvery(actions.SUBMIT_BOOKING, booking.SubmitBooking)
 
 }

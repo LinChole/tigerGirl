@@ -1,49 +1,99 @@
-import React, { useEffect } from 'react'
-import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@material-ui/core";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Container,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+  Grid,
+  Card,
+  CardActionArea,
+  CardContent,
+  Box,
+  Paper
+} from "@material-ui/core";
+import Loading from "../statics/Loading"
+import Project from "../../containers/clients/FWProject"
+import ProjectDateTime from "../../containers/clients/FWProjectDateTime"
+import ProjectConfirm from "../../containers/clients/FWProjectConfirm"
 
-const Bookings = (props) => {
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    borderRadius: 12,
+    boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+  },
+  selected: {
+    border: `2px solid ${theme.palette.primary.main}`,
+  },
+  actions: {
+    marginTop: theme.spacing(4),
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  timeButton: {
+    margin: theme.spacing(1),
+  },
+  confirmPaper: {
+    padding: theme.spacing(3),
+    marginTop: theme.spacing(2),
+    borderRadius: 12,
+    boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+  },
+}));
 
-  useEffect(() => {
+function stepContent(step) {
+  switch (step) {
+    case 1:
+      return <Project />
+    case 2:
+      return <ProjectDateTime />
+    case 3:
+      return <ProjectConfirm />
+    default:
+      return <></>
+  }
+}
 
-  }, []);
-  const bookings = [
-    { id: 1, service: "睫毛嫁接", date: "2025-12-20 14:00", status: "已預約" },
-    { id: 2, service: "補睫毛", date: "2025-12-25 16:00", status: "已完成" },
-  ];
+export default function Bookings(props) {
+  const classes = useStyles()
+  const [activeStep, setActiveStep] = useState(0)
+  const { pfetching, error, submitBooking } = props
+  const steps = ["選擇服務項目", "選擇日期與時間", "確認預約內容"]
 
+  const handleNext = () => setActiveStep((prev) => prev + 1)
+  const handleBack = () => setActiveStep((prev) => prev - 1)
+  if (pfetching || error) return pfetching ? <Loading full /> : error
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom className='fw-flex fw-flex-jc-sb'>
-        <span>我的預約</span>
-        <Button variant="outlined" color="primary" size="large" >我要預約</Button>
-      </Typography>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>項次</TableCell>
-            <TableCell>服務項目</TableCell>
-            <TableCell>日期時間</TableCell>
-            <TableCell>狀態</TableCell>
-            <TableCell>操作</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {bookings.map((d, i) => (
-            <TableRow key={d.id}>
-              <TableCell>{i + 1}</TableCell>
-              <TableCell>{d.service}</TableCell>
-              <TableCell>{d.date}</TableCell>
-              <TableCell>{d.status}</TableCell>
-              <TableCell>
-                {d.status === "已預約" && <Button variant="outlined" color="secondary">取消</Button>}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <Container maxWidth="md">
+      <Typography variant="h4" gutterBottom>預約服務</Typography>
+
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <section>
+        {stepContent(activeStep + 1)}
+      </section>
+
+      <div className={classes.actions}>
+        <Button disabled={activeStep === 0} onClick={handleBack}>
+          上一步
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          // disabled={(activeStep === 0 && !selectedService) || (activeStep === 1 && !selectedTime)}
+          onClick={activeStep === steps.length - 1 ? submitBooking : handleNext}
+        >
+          {activeStep === steps.length - 1 ? "完成預約" : "下一步"}
+        </Button>
+      </div>
     </Container>
   );
-};
-
-export default Bookings;
+}

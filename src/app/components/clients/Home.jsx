@@ -15,7 +15,7 @@ const Home = () => {
         {user ? (
           <div className="user-welcome">
             <h2>您好, {user.name}!</h2>
-            <Link to="/bookings" className="btn-primary">
+            <Link to="/booking" className="btn-primary">
               前往預約
             </Link>
           </div>
