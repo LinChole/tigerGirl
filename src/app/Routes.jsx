@@ -11,10 +11,15 @@ import Home from "./containers/clients/FWHome"
 import Login from "./containers/FWLogin"
 
 // C
+// 所有預約資料
 import Schedule from "./containers/clients/FWSchedule"
+// 預約stepper
 import Bookings from "./containers/clients/FWBookings"
+// 使用者資料
+import UserSettings from "./containers/clients/FWUserSettings"
 
 // G
+import AdminHome from "./containers/adms/FWAdminHome"
 import AdminBookings from "./containers/adms/FWAdminBookings"
 
 import Notpage from "./components/statics/Notpage"
@@ -26,10 +31,8 @@ const ROUTE_CONFIG = {
       { path: '/', exact: true, component: Home },
       { path: '/schedule', exact: true, component: Schedule },
       { path: '/booking', exact: true, component: Bookings },
+      { path: '/settings', exact: true, component: UserSettings },
       // { path: '/booking/:id', exact: true, component: BookingDetail },
-      // { path: '/profile', exact: true, component: Profile },
-      // { path: '/settings', exact: true, component: UserSettings },
-      // { path: '/history', exact: true, component: BookingHistory },
     ]
   },
   G: {
@@ -37,7 +40,8 @@ const ROUTE_CONFIG = {
     routes: [
       // { path: '/admin', exact: true, component: AdminDashboard },
       // { path: '/admin/bookings', exact: true, component: AdminBookings },
-      { path: '/', exact: true, component: AdminBookings },
+      { path: '/', exact: true, component: AdminHome },
+      { path: '/bookings', exact: true, component: AdminBookings },
       // { path: '/admin/bookings/:id', exact: true, component: AdminBookingDetail },
       // { path: '/admin/users', exact: true, component: AdminUsers },
       // { path: '/admin/reports', exact: true, component: AdminReports },

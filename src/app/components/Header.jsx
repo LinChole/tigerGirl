@@ -1,83 +1,98 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import Menu from '@material-ui/icons/Menu'
-import ChevronLeft from '@material-ui/icons/ChevronLeft'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import { headerBackground } from 'Config'
-import Loading from './statics/Loading'
-import { size } from '../library/tools'
-import Profile from '../containers/FWProfile'
-import Banner from './statics/Banner'
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom"
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Box
+} from "@material-ui/core";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { size } from "../library/tools"
+import Loading from "./statics/Loading"
+import Profile from "../containers/FWProfile"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
-    zIndex: theme.zIndex.drawer + 1
+    background: "rgba(255, 255, 255, 0.9)",
+    backdropFilter: "blur(8px)",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+    width: '100%'
   },
-  menuButton: {
-    marginRight: theme.spacing(2)
+  brand: {
+    fontWeight: 700,
+    letterSpacing: 1,
+    color: "#e91e63",
   },
-  title: {
+  spacer: {
     flexGrow: 1,
-  }
-}))
+  },
+  navButton: {
+    marginLeft: theme.spacing(1),
+    borderRadius: 20,
+    textTransform: "none",
+    fontWeight: 500,
+  },
+  bookingButton: {
+    marginLeft: theme.spacing(2),
+    borderRadius: 24,
+    padding: theme.spacing(0.8, 3),
+    background: "linear-gradient(135deg, #f48fb1, #f06292)",
+    color: "#fff",
+    '&:hover': {
+      background: "linear-gradient(135deg, #f06292, #ec407a)",
+    },
+  },
+}));
 
-function Header(props) {
+export default function Header(props) {
   const classes = useStyles()
   const {
-    left, right, docked, title,
-    open, items,
-    toggleSidebarVisibility,
-    toggleProfile
+    fetching, items, error, open,
+    getMe, toggleProfile
   } = props
+
+  useEffect(() => {
+    getMe()
+  }, [])
+
+
+  if (fetching || error) return fetching ? <Loading full /> : error
+  if (!size(items)) return '無資料'
   return (
-    <AppBar position='fixed' className={`${classes.appBar} ${headerBackground}`}>
-      <Banner />
-      {/* <Toolbar variant={!docked ? 'dense' : 'regular'}> */}
-      <Toolbar variant='dense'>
-        <IconButton
-          edge='start'
-          className={classes.menuButton}
-          color='inherit'
-          aria-label='menu'
-          onClick={() => toggleSidebarVisibility('left')}
-        >
-          {left ? <ChevronLeft /> : <Menu />}
-        </IconButton>
-        <Typography variant='h6' className={classes.title}>{title || ''}</Typography>
-        {
-          !!size(items) && (
-            <div>
-              <IconButton
-                edge='end'
-                color='inherit'
-                aria-label='account of current user'
-                onClick={toggleProfile}
-              >
-                <AccountCircle />
-              </IconButton>
-              {open && <Profile />}
-            </div>
-          )
-        }
+    <AppBar position="sticky" className={classes.appBar} elevation={0}>
+      <Toolbar>
+        {/* Brand */}
+        <Typography variant="h6" className={classes.brand}>
+          TigerLady's 老虎小姐
+        </Typography>
+
+        <div className={classes.spacer} />
+        {/* Navigation */}
+        <Box>
+          <Button className={classes.navButton} component={Link} to='/'>首頁</Button>
+          <Button className={classes.navButton} component={Link} to='/'>服務項目</Button>
+          {/* <Button className={classes.navButton} component={Link} to='/login'>作品集</Button> */}
+          {items.Name ? (
+            <>
+              <Button className={classes.navButton} component={Link} to='/schedule'>我的預約</Button>
+              <Button className={classes.navButton} component={Link} to='/settings'>會員中心</Button>
+              <IconButton aria-label={items.Name} color='primary' onClick={toggleProfile}><AccountCircleIcon /></IconButton>
+            </>
+          ) : (
+            <Button component={Link} to='/login' color='primary'>登入</Button>
+          )}
+          {/* <Button
+            variant="contained"
+            className={classes.bookingButton}
+          >
+            立即預約
+          </Button> */}
+          {open && <Profile />}
+        </Box>
       </Toolbar>
     </AppBar>
-  )
+  );
 }
-
-Header.propTypes = {
-  left: PropTypes.bool.isRequired,
-  right: PropTypes.bool.isRequired,
-  docked: PropTypes.bool.isRequired,
-  title: PropTypes.string,
-  open: PropTypes.bool,
-  items: PropTypes.object,
-  toggleSidebarVisibility: PropTypes.func.isRequired,
-  toggleProfile: PropTypes.func.isRequired
-}
-
-export default Header

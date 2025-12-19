@@ -1,30 +1,31 @@
-import React, { useState, useEffect, Fragment, useRef } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react"
 import { Link } from 'react-router-dom'
 
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import PropTypes from "prop-types"
+import classNames from "classnames"
 
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles"
 
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import ListItemLink from "./statics/ListItemLink";
+import Drawer from "@material-ui/core/Drawer"
+import List from "@material-ui/core/List"
+import Divider from "@material-ui/core/Divider"
+import ListSubheader from "@material-ui/core/ListSubheader"
+import useScrollTrigger from "@material-ui/core/useScrollTrigger"
+import ListItemLink from "./statics/ListItemLink"
 
-import HomeIcon from '@material-ui/icons/Home';
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
-import ListAltIcon from '@material-ui/icons/ListAlt';
-import Toolbar from '@material-ui/core/Toolbar';
-import TodayIcon from '@material-ui/icons/Today';
+import HomeIcon from '@material-ui/icons/Home'
+import ImportContactsIcon from '@material-ui/icons/ImportContacts'
+import ListAltIcon from '@material-ui/icons/ListAlt'
+import Toolbar from '@material-ui/core/Toolbar'
+import TodayIcon from '@material-ui/icons/Today'
+import SettingsIcon from '@material-ui/icons/Settings'
 
 
-import Loading from "./statics/Loading";
-import { size } from "../library/tools";
+import Loading from "./statics/Loading"
+import { size } from "../library/tools"
 
-import { sidebarWidth } from "Config";
+import { sidebarWidth } from "Config"
 
 
 
@@ -53,7 +54,8 @@ const iconSet = {
   HomeIcon,
   ListAltIcon,
   ImportContactsIcon,
-  TodayIcon
+  TodayIcon,
+  SettingsIcon
 };
 
 function HideOnScroll(props) {

@@ -11,6 +11,11 @@
         "name": "我的預約",
         "Icon": "TodayIcon",
         "page": "/schedule"
+      },
+      {
+        "name": "設定",
+        "Icon": "SettingsIcon",
+        "page": "/schedule"
       }
     ]
   }

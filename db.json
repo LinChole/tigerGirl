@@ -1,44 +1,35 @@
 {
   "me": {
     "uid": 1,
-    "Name": "Lin",
-    "Phone": "049-29111111",
-    "email": "test123@mail.com",
-    "Role": "C"
+    "Name": "王小美",
+    "Phone": "0912-***-**8",
+    "Email": "test12358@mail.com",
+    "Birthday": "1995-05-22",
+    "Note": "對膠水較敏感",
+    "Role": "C",
+    "LastLoginDT": null
   },
   "schedules": [
     {
       "id": "12",
       "user": 1,
-      "date": "2024-07-01",
+      "date": "2024/07/01 15:00",
       "service": "睫毛嫁接",
       "status": 0
     },
     {
       "id": "15",
       "user": 1,
-      "date": "2025-12-25 16:00",
+      "date": "2025/12/25 16:00",
       "service": "補睫毛",
       "status": 1
     },
     {
-      "id": "49d8",
-      "name": "美睫",
-      "cname": "6D 100根",
-      "dateTime": "2025/12/19 14: 00",
-      "price": "1200"
-    },
-    {
-      "id": "bd39",
-      "name": "體驗班",
-      "dateTime": "2025/12/20 10: 00",
-      "price": 28000
-    },
-    {
-      "id": "1fcd",
-      "name": "霧眉",
-      "dateTime": "2025/12/20 14: 00",
-      "price": "5000"
+      "id": "a543",
+      "user": 1,
+      "date": "2025/12/19 14: 00",
+      "service": "美睫",
+      "status": 0
     }
   ],
   "project": [

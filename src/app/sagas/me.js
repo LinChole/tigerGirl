@@ -7,8 +7,12 @@ const ipHost = process.env.NODE_ENV === 'development' ? ipDevHost : ipProHost
 
 import {
   getMe,
-  setMe
+  setMe,
+  successUpdateUserInfo,
+  finshUpdateUserInfo
 } from '../actions/me'
+
+import { openSnackbar } from '../actions/setting'
 
 
 export function* GetMe(action) {
@@ -24,6 +28,27 @@ export function* GetMe(action) {
   } else if (status === 401) {
     window.location.assign(ipHost)
   }
+}
+
+export function* UpdateUserInfo(action) {
+  const { items } = yield select(state => state.me)
+  const json = yield call(axiosProps, {
+    cmd: 'me',
+    method: 'put',
+    data: items
+  })
+
+  const { ok, status, body } = json
+  console.log(json)
+  // if (ok && status === 200 && body.result) {
+  if (ok && status === 200) {
+    yield put(successUpdateUserInfo())
+    yield put(openSnackbar("資料更新成功"))
+  } else {
+    yield put(finshUpdateUserInfo())
+    yield put(openSnackbar(`資料更新失敗 ${body.ErrorMsg}`))
+  }
+
 }
 
 

@@ -67,7 +67,7 @@ export function* SubmitBooking(action) {
   const json = yield call(axiosProps, {
     cmd: `schedules`,
     method: 'post',
-    data: items
+    data
   })
   const { ok, status, body } = json
   if (ok && status === 200 && body.result) {

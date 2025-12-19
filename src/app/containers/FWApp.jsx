@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { resizeWindow } from "../actions/setting";
 import App from "../components/App";
+import { resizeWindow } from "../actions/setting";
 
 
 
@@ -12,5 +12,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  resizeWindow,
+  resizeWindow
 })(App);

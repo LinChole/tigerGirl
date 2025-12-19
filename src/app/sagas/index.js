@@ -34,8 +34,10 @@ import * as booking from './booking'
 
 
 export default function* rootSaga() {
-
+  // 取得個人資料 
   yield takeEvery(actions.GET_ME, me.GetMe)
+  // 更新個人資料
+  yield takeEvery(actions.UPDATE_USER_INFO, me.UpdateUserInfo)
   yield takeEvery(actions.LOGIN, logout.Login)
   yield takeEvery(actions.LOGOUT, logout.Logout)
 

@@ -10,12 +10,12 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Header from "../containers/FWHeader"
 import Sidebar from "../containers/FWSidebar"
+import Main from "../containers/FWMain"
 import Confirm from "../containers/FWConfirm"
 import Dialog from "../containers/FWDialog"
 import Snackbar from "../containers/FWSnackbar"
 import ListItemLink from './statics/ListItemLink'
-import Main from "../containers/FWMain"
-
+import Footer from "./Footer"
 
 import { containerMaxWidth, sidebarWidth } from 'Config'
 
@@ -75,7 +75,7 @@ function App(props) {
 
   const {
     left, right, docked,
-    resizeWindow, fetching, items, error, getMe
+    resizeWindow, fetching, items, error
   } = props
 
   useEffect(() => {
@@ -88,22 +88,22 @@ function App(props) {
 
   const middleResizeThrottle = useCallback(throttle(resizeWindow, 500), [])
   return (
-    <div className='fw-flex fw-bg-white'>
-      {/* <CssBaseline /> */}
-      <Sidebar />
+    // <div className='fw-flex fw-bg-white'>
+    <div className='fw-bg-white'>
+      {/* <Sidebar /> */}
       <Header />
       <main
-        className={classNames(classes.main, {
-          [classes.content]: docked
-        }, {
-          [classes.contentShiftLeft]: docked && left
-          // }, {
-          // [classes.contentShiftRight]: docked && right
-        }, 'fw-w-100')}
-        style={{
-          marginLeft: docked && -sidebarWidth,
-          // marginRight: docked && -sidebarWidth
-        }}
+      // className={classNames(classes.main, {
+      //   [classes.content]: docked
+      // }, {
+      //   [classes.contentShiftLeft]: docked && left
+      //   // }, {
+      //   // [classes.contentShiftRight]: docked && right
+      // }, 'fw-w-100')}
+      // style={{
+      //   marginLeft: docked && -sidebarWidth,
+      //   // marginRight: docked && -sidebarWidth
+      // }}
       >
         <div className={classes.toolbar} />
         {/* <div className={classes.banner} /> */}
@@ -117,6 +117,7 @@ function App(props) {
       <Dialog />
       <Confirm />
       <Snackbar />
+      <Footer />
     </div>
   );
 }

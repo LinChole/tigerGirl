@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import onClickOutside from 'react-onclickoutside'
 import Loading from './statics/Loading'
@@ -11,8 +12,8 @@ import Button from './statics/Button'
 const styles = {
   side: {
     position: 'fixed',
-    top: 55,
-    right: 8,
+    top: 45,
+    right: 20,
     minWidth: 215,
     zIndex: 2
   },
@@ -47,8 +48,8 @@ function Profile(props) {
 
   return (
     <div style={styles.side}>
-      <span style={styles.triangleInt} />
-      <span style={styles.triangleOut} />
+      {/* <span style={styles.triangleInt} /> */}
+      {/* <span style={styles.triangleOut} /> */}
       <div className='w3-card w3-white w3-section'>
         {
           (() => {
@@ -61,7 +62,7 @@ function Profile(props) {
                   <Text strong>{items?.Name}</Text>
                 </div>
                 <div className='w3-section'>
-                  <Button full onClick={() => {
+                  <Button full color='indigo' onClick={() => {
                     logout()
                     closeProfile()
                   }}>登出</Button>
