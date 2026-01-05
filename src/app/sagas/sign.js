@@ -15,11 +15,11 @@ export function* Login(action) {
   // const { ok, status, body } = json
   // if (ok && status === 200 && body.result) {
 
-  let r = 'G'
+  let r = 'C'
   window.alert('【登入】成功')
   yield call(setCookie, 'role', r, 1)
   yield call(setCookie, 'uid', 1, 1)
-  window.location.assign(`/`)
+  window.location.assign(`${r === 'G' ? '/admin' : '/'}`)
   // } else yield put(openSnackbar('【登入】失敗'))
 }
 

@@ -3,10 +3,10 @@
     "uid": 1,
     "Name": "王小美",
     "Phone": "0912-***-**8",
-    "Email": "test12358@mail.com",
+    "Email": "test123589@mail.com",
     "Birthday": "1995-05-22",
     "Note": "對膠水較敏感",
-    "Role": "C",
+    "Role": "G",
     "LastLoginDT": null
   },
   "schedules": [
@@ -28,6 +28,13 @@
       "id": "a543",
       "user": 1,
       "date": "2025/12/19 14: 00",
+      "service": "美睫",
+      "status": 0
+    },
+    {
+      "id": "ac9a",
+      "user": 1,
+      "date": "2025/12/20 14: 00",
       "service": "美睫",
       "status": 0
     }

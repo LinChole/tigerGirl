@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -71,6 +72,8 @@ export default function Home() {
               variant="contained"
               color="primary"
               className={classes.primaryButton}
+              component={Link}
+              to="/booking"
             >
               立即預約
             </Button>

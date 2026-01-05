@@ -48,6 +48,11 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   banner: {
     padding: theme.spacing(7, 0)
+  },
+  footer: {
+    position: 'fixed',
+    bottom: 0,
+    width: '100%'
   }
 }));
 
@@ -89,10 +94,11 @@ function App(props) {
   const middleResizeThrottle = useCallback(throttle(resizeWindow, 500), [])
   return (
     // <div className='fw-flex fw-bg-white'>
-    <div className='fw-bg-white'>
+    <div className='fw-bg-white app-layout'>
       {/* <Sidebar /> */}
       <Header />
       <main
+        className="app-content"
       // className={classNames(classes.main, {
       //   [classes.content]: docked
       // }, {
@@ -105,10 +111,11 @@ function App(props) {
       //   // marginRight: docked && -sidebarWidth
       // }}
       >
-        <div className={classes.toolbar} />
+        {/* <div className={classes.toolbar} /> */}
         {/* <div className={classes.banner} /> */}
-        <div className={`fw-screen fw-mw-${containerMaxWidth} w3-white`}>
-          <div className="w3-container w3-padding-16">
+        {/* <div className={`fw-screen fw-mw-${containerMaxWidth} w3-white `}> */}
+        <div className={` fw-mw-${containerMaxWidth} w3-white `}>
+          <div className="w3-container w3-padding-16 ">
             <Main />
           </div>
         </div>

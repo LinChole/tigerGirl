@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import AdminHome from "../../components/adms/AdminHome";
+import AdminBackstage from "../../components/adms/AdminBackstage";
 
 
 const mapStateToProps = (state) => ({
@@ -8,4 +8,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
 
-})(AdminHome);
+})(AdminBackstage);

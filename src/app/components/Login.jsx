@@ -19,7 +19,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    // background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     display: "flex",
     alignItems: "center"
   },
@@ -125,11 +125,6 @@ function Login(props) {
             </form>
           </Box>
         </Paper>
-        <Box mt={4}>
-          <Typography variant="body2" color="inherit" align="center">
-            © {new Date().getFullYear()} Your Company
-          </Typography>
-        </Box>
       </Container>
     </div>
   );

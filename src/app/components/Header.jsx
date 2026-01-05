@@ -65,20 +65,22 @@ export default function Header(props) {
     <AppBar position="sticky" className={classes.appBar} elevation={0}>
       <Toolbar>
         {/* Brand */}
-        <Typography variant="h6" className={classes.brand}>
-          TigerLady's 老虎小姐
-        </Typography>
+        <Typography variant="h6" className={classes.brand}>TigerLady's 老虎小姐</Typography>
 
         <div className={classes.spacer} />
         {/* Navigation */}
         <Box>
-          <Button className={classes.navButton} component={Link} to='/'>首頁</Button>
-          <Button className={classes.navButton} component={Link} to='/'>服務項目</Button>
+          <Button className={classes.navButton} component={Link} to={`${items.Role === 'C' ? '/' : '/admin'}`} >首頁</Button>
+          {/* <Button className={classes.navButton} component={Link} to='/'>服務項目</Button> */}
           {/* <Button className={classes.navButton} component={Link} to='/login'>作品集</Button> */}
           {items.Name ? (
             <>
-              <Button className={classes.navButton} component={Link} to='/schedule'>我的預約</Button>
-              <Button className={classes.navButton} component={Link} to='/settings'>會員中心</Button>
+              {items.Role === 'C' && (
+                <>
+                  <Button className={classes.navButton} component={Link} to='/schedule'>我的預約</Button>
+                  <Button className={classes.navButton} component={Link} to='/settings'>會員中心</Button>
+                </>)
+              }
               <IconButton aria-label={items.Name} color='primary' onClick={toggleProfile}><AccountCircleIcon /></IconButton>
             </>
           ) : (

@@ -6,6 +6,29 @@
 body 
 	background-color white !important
 
+footer 
+  flex-shrink 0; /* 確保 footer 不會被壓縮 */
+  padding 20px
+
+.app-layout
+	min-height 100vh
+	display flex
+	flex-direction column
+
+.body-layout {
+  flex 1
+  display flex
+  min-height 0
+}
+
+.app-content 
+  flex 1
+  display flex
+  width 100%
+  min-width 0
+  flex-direction column
+
+
 .primarydColor
     background-color #E5D6A4 !important
 
