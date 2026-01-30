@@ -14,33 +14,76 @@ import {
   Box,
   Paper
 } from "@material-ui/core";
-import Loading from "../statics/Loading"
 import Project from "../../containers/clients/FWProject"
 import ProjectDateTime from "../../containers/clients/FWProjectDateTime"
 import ProjectConfirm from "../../containers/clients/FWProjectConfirm"
 
 
 const useStyles = makeStyles((theme) => ({
-  card: {
-    borderRadius: 12,
-    boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+  root: {
+    minHeight: "100vh",
+    background: "#F7F2FB",
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   },
-  selected: {
-    border: `2px solid ${theme.palette.primary.main}`,
+  title: {
+    fontWeight: 700,
+    marginBottom: theme.spacing(4),
+    background: "linear-gradient(135deg, #5998CA 0%, #CD75CE 100%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+  },
+  stepper: {
+    background: "transparent",
+    padding: theme.spacing(3, 0),
+    "& .MuiStepIcon-root.MuiStepIcon-active": {
+      color: "#5998CA",
+    },
+    "& .MuiStepIcon-root.MuiStepIcon-completed": {
+      color: "#CD75CE",
+    },
+    "& .MuiStepLabel-label.MuiStepLabel-active": {
+      color: "#5998CA",
+      fontWeight: 600,
+    },
+  },
+  contentBox: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
   },
   actions: {
     marginTop: theme.spacing(4),
     display: "flex",
     justifyContent: "space-between",
   },
-  timeButton: {
-    margin: theme.spacing(1),
+  backButton: {
+    borderRadius: 30,
+    padding: theme.spacing(1, 4),
+    borderColor: "#97BCEE",
+    color: "#5998CA",
+    "&:hover": {
+      borderColor: "#5998CA",
+      background: "rgba(89, 152, 202, 0.1)",
+    },
   },
-  confirmPaper: {
-    padding: theme.spacing(3),
-    marginTop: theme.spacing(2),
-    borderRadius: 12,
-    boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+  nextButton: {
+    borderRadius: 30,
+    padding: theme.spacing(1, 4),
+    fontWeight: 600,
+    background: "linear-gradient(135deg, #5998CA 0%, #7C84A4 50%, #CD75CE 100%)",
+    backgroundSize: "200% 200%",
+    color: "#fff",
+    boxShadow: "0 8px 20px rgba(89, 152, 202, 0.4)",
+    transition: "all 0.4s ease",
+    "&:hover": {
+      backgroundPosition: "100% 0",
+      boxShadow: "0 12px 30px rgba(205, 117, 206, 0.5)",
+      transform: "translateY(-2px)",
+    },
+    "&:active": {
+      transform: "translateY(0)",
+    },
   },
 }));
 
@@ -65,35 +108,44 @@ export default function Bookings(props) {
 
   const handleNext = () => setActiveStep((prev) => prev + 1)
   const handleBack = () => setActiveStep((prev) => prev - 1)
-  if (pfetching || error) return pfetching ? <Loading full /> : error
+
   return (
-    <Container maxWidth="md">
-      <Typography variant="h4" gutterBottom>預約服務</Typography>
+    <Box className={classes.root}>
+      <Container maxWidth="md">
+        <Typography variant="h3" className={classes.title}>
+          預約服務
+        </Typography>
 
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <section>
-        {stepContent(activeStep + 1)}
-      </section>
+        <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
 
-      <div className={classes.actions}>
-        <Button disabled={activeStep === 0} onClick={handleBack}>
-          上一步
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          // disabled={(activeStep === 0 && !selectedService) || (activeStep === 1 && !selectedTime)}
-          onClick={activeStep === steps.length - 1 ? submitBooking : handleNext}
-        >
-          {activeStep === steps.length - 1 ? "完成預約" : "下一步"}
-        </Button>
-      </div>
-    </Container>
+        <Box className={classes.contentBox}>
+          {stepContent(activeStep + 1)}
+        </Box>
+
+        <div className={classes.actions}>
+          <Button
+            disabled={activeStep === 0}
+            onClick={handleBack}
+            variant="outlined"
+            className={classes.backButton}
+          >
+            上一步
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.nextButton}
+            onClick={activeStep === steps.length - 1 ? submitBooking : handleNext}
+          >
+            {activeStep === steps.length - 1 ? "完成預約" : "下一步"}
+          </Button>
+        </div>
+      </Container>
+    </Box>
   );
 }

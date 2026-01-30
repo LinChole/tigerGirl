@@ -26,7 +26,7 @@ import AdminBookings from "./containers/adms/FWAdminBookings"
 // 服務項目管理
 import AdminServices from "./containers/adms/FWAdminServices"
 
-import Notpage from "./components/statics/Notpage"
+// import Notpage from "./components/statics/Notpage"
 
 const ROUTE_CONFIG = {
   C: {
@@ -99,7 +99,7 @@ const Routes = (props) => {
                 component={route.component}
               />
             ))}
-            <Route path="*" component={Notpage} />
+            {/* <Route path="*" component={Notpage} /> */}
           </Switch>
         </AuthGuard>
       </Switch>

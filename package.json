@@ -5,7 +5,7 @@
   "main": "webpack.dev.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set NODE_OPTIONS=--openssl-legacy-provider && webpack-dev-server --progress --colors --config webpack.dev.js ",
+    "start": "webpack-dev-server --progress --colors --config webpack.dev.js ",
     "server": "json-server --watch db.json --port 6006",
     "build": "set NODE_OPTIONS=--openssl-legacy-provider && webpack --progress --colors --config webpack.prod.js"
   },

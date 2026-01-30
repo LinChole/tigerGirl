@@ -2,12 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import onClickOutside from 'react-onclickoutside'
-import Loading from './statics/Loading'
 import { size } from '../library/tools'
-import Icons from './statics/Icons'
 import PermIdentity from '@material-ui/icons/PermIdentity'
-import Text from './statics/Text'
-import Button from './statics/Button'
+import { Button } from "@material-ui/core";
 
 const styles = {
   side: {
@@ -53,13 +50,12 @@ function Profile(props) {
       <div className='w3-card w3-white w3-section'>
         {
           (() => {
-            if (fetching) return <Loading full>資料請求中</Loading>
+            // if (fetching) return <Loading full>資料請求中</Loading>
             if (!size(items)) return '沒有資料'
             return (
               <div className='w3-container w3-section'>
                 <div className='w3-section'>
-                  <Icons Icon={PermIdentity} />
-                  <Text strong>{items?.Name}</Text>
+                  <b>{items?.Name}</b>
                 </div>
                 <div className='w3-section'>
                   <Button full color='indigo' onClick={() => {

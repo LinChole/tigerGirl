@@ -12,7 +12,6 @@ import List from "@material-ui/core/List"
 import Divider from "@material-ui/core/Divider"
 import ListSubheader from "@material-ui/core/ListSubheader"
 import useScrollTrigger from "@material-ui/core/useScrollTrigger"
-import ListItemLink from "./statics/ListItemLink"
 
 import HomeIcon from '@material-ui/icons/Home'
 import ImportContactsIcon from '@material-ui/icons/ImportContacts'
@@ -21,8 +20,6 @@ import Toolbar from '@material-ui/core/Toolbar'
 import TodayIcon from '@material-ui/icons/Today'
 import SettingsIcon from '@material-ui/icons/Settings'
 
-
-import Loading from "./statics/Loading"
 import { size } from "../library/tools"
 
 import { sidebarWidth } from "Config"
@@ -109,7 +106,7 @@ function Sidebar(props) {
         <div className={classNames({ [classes.banner]: docked })} />
         {/* </HideOnScroll> */}
         {(() => {
-          if (fetching) return <Loading full>資料請求中</Loading>;
+          // if (fetching) return <Loading full>資料請求中</Loading>;
           if (!size(menu)) return <div className="w3-container">請先登入</div>;
           return menu.map((item, index) => {
             const { name, content } = item;
@@ -121,7 +118,7 @@ function Sidebar(props) {
                     {name}
                   </ListSubheader>
                 }>
-                  {content.map((lst, index2) => {
+                  {/* {content.map((lst, index2) => {
                     const Icon = iconSet[lst.Icon];
                     return (
                       <ListItemLink to={lst.page} Icon={Icon} key={index2}
@@ -130,7 +127,7 @@ function Sidebar(props) {
                         {lst.name}
                       </ListItemLink>
                     );
-                  })}
+                  })} */}
                 </List>
                 {menu.length > index + 1 && <Divider />}
               </Fragment>

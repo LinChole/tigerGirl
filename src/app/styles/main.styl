@@ -4,8 +4,32 @@
     font-family 'Roboto', 'Microsoft JhengHei', sans-serif !important
 
 body 
-	background-color white !important
+	background-color #F7F2FB !important
 
+footer 
+  flex-shrink 0; /* 確保 footer 不會被壓縮 */
+  padding 20px
+
+.app-layout
+	min-height 100vh
+	display flex
+	flex-direction column
+
+.body-layout {
+  flex 1
+  display flex
+  min-height 0
+}
+
+.app-content 
+  flex 1
+  display flex
+  width 100%
+  min-width 0
+  flex-direction column
+
+
+// 舊的顏色配置（保留以防其他地方使用）
 footer 
   flex-shrink 0; /* 確保 footer 不會被壓縮 */
   padding 20px
@@ -32,11 +56,9 @@ footer
 .primarydColor
     background-color #E5D6A4 !important
 
- .secondColor   
-   background-color #E4DFCE !important
-
 .primaryColorM
    background-color #F8D7CB !important
+
 .tableColor
 	background-color: #EFE9E4 !important
 

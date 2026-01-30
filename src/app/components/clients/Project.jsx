@@ -6,20 +6,62 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  Divider
+  Divider,
+  Box,
+  Chip
 } from "@material-ui/core";
-import Loading from '../statics/Loading'
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 
 const useStyles = makeStyles((theme) => ({
+  sectionTitle: {
+    fontWeight: 600,
+    color: "#5998CA",
+    marginBottom: theme.spacing(3),
+  },
   card: {
-    borderRadius: 12,
-    boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
-    minWidth: 230,
-    minHeight: 110
+    borderRadius: 20,
+    boxShadow: "0 8px 25px rgba(89, 152, 202, 0.15)",
+    transition: "all 0.3s ease",
+    border: "2px solid transparent",
+    height: "100%",
+    "&:hover": {
+      transform: "translateY(-5px)",
+      boxShadow: "0 12px 35px rgba(205, 117, 206, 0.25)",
+    },
   },
   selected: {
-    border: `2px solid blue`,
+    border: "2px solid #5998CA",
+    background: "linear-gradient(135deg, rgba(89, 152, 202, 0.05) 0%, rgba(205, 117, 206, 0.05) 100%)",
+    boxShadow: "0 12px 35px rgba(89, 152, 202, 0.3)",
+  },
+  cardContent: {
+    padding: theme.spacing(3),
+    position: "relative",
+  },
+  serviceName: {
+    fontWeight: 600,
+    color: "#5998CA",
+    marginBottom: theme.spacing(1),
+  },
+  duration: {
+    color: "#7C84A4",
+    marginBottom: theme.spacing(1),
+  },
+  price: {
+    fontWeight: 600,
+    fontSize: "1.2rem",
+    color: "#CD75CE",
+  },
+  checkIcon: {
+    position: "absolute",
+    top: theme.spacing(2),
+    right: theme.spacing(2),
+    color: "#5998CA",
+  },
+  divider: {
+    margin: theme.spacing(4, 0, 3, 0),
+    background: "linear-gradient(90deg, transparent, #97BCEE, transparent)",
   },
 }));
 
@@ -31,21 +73,26 @@ const duration = (d, h, m) => {
 }
 
 function Base(props) {
-  const { data, select } = props
+  const classes = useStyles();
+  const { data, select, isSelected } = props
+
   return (
-    <Card>
+    <Card className={`${classes.card} ${isSelected ? classes.selected : ''}`}>
       <CardActionArea onClick={() => select(data.id)}>
-        <CardContent>
-          <Typography variant="h6">{data.Name}</Typography>
-          <Typography variant="body1" color="textSecondary">
-            {duration(data.DD, data.HH, data.MM)}
+        <CardContent className={classes.cardContent}>
+          {isSelected && <CheckCircleIcon className={classes.checkIcon} />}
+          <Typography variant="h6" className={classes.serviceName}>
+            {data.Name}
           </Typography>
-          <Typography variant="body1" color="primary">
-            NT ${data.Price}
+          <Typography variant="body2" className={classes.duration}>
+            ⏱️ {duration(data.DD, data.HH, data.MM)}
+          </Typography>
+          <Typography variant="h6" className={classes.price}>
+            NT$ {data.Price}
           </Typography>
         </CardContent>
       </CardActionArea>
-    </Card >
+    </Card>
   )
 }
 
@@ -68,36 +115,36 @@ export default function Project(props) {
     if (show) getSubproject(id)
   }
 
-  if (fetching || error) return fetching ? <Loading full /> : error
-  if (pfetching || error) return pfetching ? <Loading full /> : error
   return (
-    <>
-      <Typography variant="h5" gutterBottom>服務項目</Typography>
-      <Grid container spacing={3} className='fw-mgtop-10'>
+    <Box>
+      <Typography variant="h5" className={classes.sectionTitle}>
+        選擇服務項目
+      </Typography>
+      <Grid container spacing={3}>
         {items.map((d, i) => (
           <Grid
-            item xs={12} sm={4}
+            item xs={12} sm={6} md={4} lg={3}
             key={i}
-            className={d.selected ? `${classes.card} ${classes.selected}` : ''}
             onClick={() => projectHandler(d.id, d.subporject)}>
-            <Base data={d} select={selectProject} />
+            <Base data={d} select={selectProject} isSelected={d.selected} />
           </Grid>
         ))}
       </Grid>
       {show && (
-        <div className='fw-mgtop-30'>
-          <Divider light />
-          <Typography variant="h5" gutterBottom>項目內容</Typography>
-          <Grid container spacing={3} >
+        <div>
+          <Divider className={classes.divider} />
+          <Typography variant="h5" className={classes.sectionTitle}>
+            選擇項目內容
+          </Typography>
+          <Grid container spacing={3}>
             {subproject.items.map((d, i) => (
-              <Grid item xs={12} sm={4} className={d.selected ? `${classes.card} ${classes.selected}` : ''} key={i}>
-                <Base data={d} key={i} select={selectSubproject} />
+              <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                <Base data={d} select={selectSubproject} isSelected={d.selected} />
               </Grid>
             ))}
-          </Grid >
+          </Grid>
         </div>
-      )
-      }
-    </>
+      )}
+    </Box>
   )
 }

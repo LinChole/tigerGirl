@@ -15,7 +15,7 @@ export function* Login(action) {
   // const { ok, status, body } = json
   // if (ok && status === 200 && body.result) {
 
-  let r = 'C'
+  let r = 'G'
   window.alert('【登入】成功')
   yield call(setCookie, 'role', r, 1)
   yield call(setCookie, 'uid', 1, 1)
@@ -25,7 +25,7 @@ export function* Login(action) {
 
 export function* Logout(action) {
   // const json = yield call(axiosProps, {
-  //   cmd: 'api/logout',
+  //   cmd: 'api/logout', 
   //   method: 'post'
   // })
   // const { ok, status, body } = json

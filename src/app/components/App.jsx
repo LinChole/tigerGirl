@@ -14,7 +14,6 @@ import Main from "../containers/FWMain"
 import Confirm from "../containers/FWConfirm"
 import Dialog from "../containers/FWDialog"
 import Snackbar from "../containers/FWSnackbar"
-import ListItemLink from './statics/ListItemLink'
 import Footer from "./Footer"
 
 import { containerMaxWidth, sidebarWidth } from 'Config'

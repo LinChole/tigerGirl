@@ -11,20 +11,29 @@ import {
 } from "@material-ui/core";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { size } from "../library/tools"
-import Loading from "./statics/Loading"
 import Profile from "../containers/FWProfile"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    background: "rgba(255, 255, 255, 0.9)",
-    backdropFilter: "blur(8px)",
-    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-    width: '100%'
+    background: "rgba(247, 242, 251, 0.95)",
+    backdropFilter: "blur(20px)",
+    boxShadow: "0 4px 30px rgba(89, 152, 202, 0.15)",
+    width: '100%',
+    transition: "all 0.3s ease",
   },
   brand: {
     fontWeight: 700,
-    letterSpacing: 1,
-    color: "#e91e63",
+    letterSpacing: 1.2,
+    fontSize: "1.3rem",
+    background: "linear-gradient(135deg, #5998CA 0%, #CD75CE 100%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+    transition: "all 0.3s ease",
+    cursor: "pointer",
+    "&:hover": {
+      transform: "scale(1.05)",
+    }
   },
   spacer: {
     flexGrow: 1,
@@ -34,15 +43,36 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 20,
     textTransform: "none",
     fontWeight: 500,
+    color: "#7C84A4",
+    transition: "all 0.3s ease",
+    "&:hover": {
+      color: "#5998CA",
+      background: "rgba(89, 152, 202, 0.1)",
+      transform: "translateY(-2px)",
+    }
+  },
+  iconButton: {
+    color: "#7C84A4",
+    transition: "all 0.3s ease",
+    "&:hover": {
+      color: "#5998CA",
+      transform: "scale(1.1)",
+    }
   },
   bookingButton: {
     marginLeft: theme.spacing(2),
     borderRadius: 24,
     padding: theme.spacing(0.8, 3),
-    background: "linear-gradient(135deg, #f48fb1, #f06292)",
+    background: "linear-gradient(135deg, #5998CA 0%, #7C84A4 50%, #CD75CE 100%)",
+    backgroundSize: "200% 200%",
     color: "#fff",
+    fontWeight: 600,
+    boxShadow: "0 4px 15px rgba(89, 152, 202, 0.3)",
+    transition: "all 0.4s ease",
     '&:hover': {
-      background: "linear-gradient(135deg, #f06292, #ec407a)",
+      backgroundPosition: "100% 0",
+      boxShadow: "0 6px 25px rgba(205, 117, 206, 0.4)",
+      transform: "translateY(-2px)",
     },
   },
 }));
@@ -51,16 +81,13 @@ export default function Header(props) {
   const classes = useStyles()
   const {
     fetching, items, error, open,
-    getMe, toggleProfile
+    getMe, toggleProfile, logout
   } = props
 
   useEffect(() => {
     getMe()
   }, [])
 
-
-  if (fetching || error) return fetching ? <Loading full /> : error
-  if (!size(items)) return '無資料'
   return (
     <AppBar position="sticky" className={classes.appBar} elevation={0}>
       <Toolbar>
@@ -79,9 +106,10 @@ export default function Header(props) {
                 <>
                   <Button className={classes.navButton} component={Link} to='/schedule'>我的預約</Button>
                   <Button className={classes.navButton} component={Link} to='/settings'>會員中心</Button>
+                  <Button className={classes.navButton} onClick={logout} color='primary'>登出</Button>
                 </>)
               }
-              <IconButton aria-label={items.Name} color='primary' onClick={toggleProfile}><AccountCircleIcon /></IconButton>
+
             </>
           ) : (
             <Button component={Link} to='/login' color='primary'>登入</Button>
