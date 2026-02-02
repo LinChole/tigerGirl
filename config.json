@@ -14,7 +14,7 @@
   "defaultRoot": "/",
   "drawerActiveColor": "w3-khaki",
   "_cmt5": "API資訊",
-  "devHost": "http://localhost:6006/",
+  "devHost": "http://localhost:5241/",
   "proHost": "/",
   "ipDevHost": "http://10.21.6.71:779",
   "ipProHost": "https://sso_srvdemo.cloud.ncnu.edu.tw",
