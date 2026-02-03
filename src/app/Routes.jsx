@@ -61,7 +61,9 @@ const AuthGuard = ({ children }) => {
     return <Redirect to={{ pathname: '/login', state: { from: location } }} />;
   }
 
-  const config = ROUTE_CONFIG[auth.role];
+  const roleKey = auth.role.toUpperCase();
+  const config = ROUTE_CONFIG[roleKey] || ROUTE_CONFIG['C']; // Fallback to 'C' if role is unknown but user is logged in
+
   const currentPath = location.pathname;
 
   // // 檢查當前路徑是否屬於該角色
@@ -83,7 +85,7 @@ const AuthGuard = ({ children }) => {
 const Routes = (props) => {
   const { role } = useAuth()
   // 已登入時根據角色渲染對應路由
-  const config = ROUTE_CONFIG[role];
+  const config = ROUTE_CONFIG[role?.toUpperCase()];
   return (
     <>
       <Switch>

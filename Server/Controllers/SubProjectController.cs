@@ -11,9 +11,10 @@ public class SubProjectController : ControllerBase
     public SubProjectController(DataService data) => _data = data;
 
     [HttpGet]
-    public IActionResult Get([FromQuery] int pid)
+    public async Task<IActionResult> Get([FromQuery] int pid)
     {
-        var subs = _data.SubProjects.Where(s => s.ProjectId == pid).ToList();
-        return Ok(subs);
+        var subs = await _data.GetSubProjectsAsync();
+        var filtered = subs.Where(s => s.ProjectId == pid).ToList();
+        return Ok(filtered);
     }
 }

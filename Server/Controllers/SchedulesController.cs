@@ -12,45 +12,64 @@ public class SchedulesController : ControllerBase
     public SchedulesController(DataService data) => _data = data;
 
     [HttpGet]
-    public IActionResult Get([FromQuery] int? user)
+    public async Task<IActionResult> Get([FromQuery] int? user)
     {
-        if (user.HasValue)
+        int.TryParse(Request.Cookies["uid"], out int uid);
+        string role = Request.Cookies["role"] ?? "";
+
+        var schedules = await _data.GetSchedulesAsync();
+
+        // If Admin (G), return all or filter by query param
+        if (role.ToUpper() == "G")
         {
-            var list = _data.Schedules.Where(s => s.UserId == user).ToList();
-            return Ok(list);
+            if (user.HasValue)
+            {
+                var list = schedules.Where(s => s.UserId == user).ToList();
+                return Ok(list);
+            }
+            return Ok(schedules);
         }
-        // Admin: Return all
-        return Ok(_data.Schedules);
+
+        // If Client (C) or others, only return their own
+        if (uid > 0)
+        {
+             var list = schedules.Where(s => s.UserId == uid).ToList();
+             return Ok(list);
+        }
+
+        return Unauthorized();
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] Schedule s)
+    public async Task<IActionResult> Create([FromBody] Schedule s)
     {
-        s.Id = _data.Schedules.Count + 1;
         // Logic to validate time? For now, just accept.
-        _data.Schedules.Add(s);
-        return Ok(new { result = true });
+        var success = await _data.CreateAsync(s);
+        return Ok(new { result = success });
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateStatus(int id, [FromBody] Schedule update)
+    public async Task<IActionResult> UpdateStatus(int id, [FromBody] Schedule update)
     {
-        var s = _data.Schedules.FirstOrDefault(x => x.Id == id);
+        var schedules = await _data.GetSchedulesAsync();
+        var s = schedules.FirstOrDefault(x => x.Id == id);
         if (s != null)
         {
             s.Status = update.Status;
-            return Ok(new { result = true });
+            var success = await _data.UpdateAsync(s);
+            return Ok(new { result = success });
         }
         return Ok(new { result = false, ErrorMsg = "Not Found" });
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Cancel(int id)
+    public async Task<IActionResult> Cancel(int id)
     {
-        var s = _data.Schedules.FirstOrDefault(x => x.Id == id);
+        var schedules = await _data.GetSchedulesAsync();
+        var s = schedules.FirstOrDefault(x => x.Id == id);
         if (s != null)
         {
-            _data.Schedules.Remove(s);
+            await _data.DeleteAsync(s);
             return Ok(new { result = true });
         }
         return Ok(new { result = false, ErrorMsg = "Not Found" });

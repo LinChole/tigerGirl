@@ -73,9 +73,13 @@ HideOnScroll.propTypes = {
 }
 
 
+import { useLocation } from "react-router-dom"
+
 function App(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
 
   const {
     left, right, docked,
@@ -91,6 +95,20 @@ function App(props) {
   }, [])
 
   const middleResizeThrottle = useCallback(throttle(resizeWindow, 500), [])
+
+  if (isLoginPage) {
+    return (
+      <div className='app-layout'>
+        <main className="app-content">
+          <Main />
+        </main>
+        <Dialog />
+        <Confirm />
+        <Snackbar />
+      </div>
+    );
+  }
+
   return (
     // <div className='fw-flex fw-bg-white'>
     <div className='fw-bg-white app-layout'>
@@ -98,21 +116,7 @@ function App(props) {
       <Header />
       <main
         className="app-content"
-      // className={classNames(classes.main, {
-      //   [classes.content]: docked
-      // }, {
-      //   [classes.contentShiftLeft]: docked && left
-      //   // }, {
-      //   // [classes.contentShiftRight]: docked && right
-      // }, 'fw-w-100')}
-      // style={{
-      //   marginLeft: docked && -sidebarWidth,
-      //   // marginRight: docked && -sidebarWidth
-      // }}
       >
-        {/* <div className={classes.toolbar} /> */}
-        {/* <div className={classes.banner} /> */}
-        {/* <div className={`fw-screen fw-mw-${containerMaxWidth} w3-white `}> */}
         <div className={` fw-mw-${containerMaxWidth} w3-white `}>
           <div className="w3-container w3-padding-16 ">
             <Main />

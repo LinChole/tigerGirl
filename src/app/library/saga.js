@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { cors, devHost, proHost } from 'Config'
 import Config from 'Config'
 // import { getCookie } from './cookie.js'
 const ipHost = process.env.NODE_ENV === 'development' ? Config.devHost : Config.proHost
@@ -48,7 +47,7 @@ export default function ({
     baseURL: ipHost,
     // process.env.NODE_ENV === 'development' ? devHost : proHost,
     ...option,
-    withCredentials: !!cors // 允許自動夾帶cookie
+    withCredentials: !!Config.cors // 允許自動夾帶cookie
   }).then((res) => {
     return {
       ok: true, // res.statusText === 'OK',

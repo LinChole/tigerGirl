@@ -12,16 +12,16 @@ public class ProjectController : ControllerBase
     public ProjectController(DataService data) => _data = data;
 
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-        return Ok(_data.Projects);
+        return Ok(await _data.GetProjectsAsync());
     }
     
     [HttpPost]
-    public IActionResult Create([FromBody] Project p)
+    public async Task<IActionResult> Create([FromBody] Project p)
     {
-        p.Id = _data.Projects.Count + 1;
-        _data.Projects.Add(p);
-        return Ok(new { result = true });
+        // Supabase handles ID generation (SERIAL)
+        var success = await _data.CreateAsync(p);
+        return Ok(new { result = success });
     }
 }

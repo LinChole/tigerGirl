@@ -26,7 +26,7 @@ export function* GetMe(action) {
     yield delay(10 * 60 * 1000)
     yield put(getMe(true))
   } else if (status === 401) {
-    window.location.assign(ipHost)
+    // window.location.assign('/login')
   }
 }
 
@@ -39,9 +39,7 @@ export function* UpdateUserInfo(action) {
   })
 
   const { ok, status, body } = json
-  console.log(json)
-  // if (ok && status === 200 && body.result) {
-  if (ok && status === 200) {
+  if (ok && status === 200 && body.result) {
     yield put(successUpdateUserInfo())
     yield put(openSnackbar("資料更新成功"))
   } else {

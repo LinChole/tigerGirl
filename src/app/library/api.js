@@ -49,7 +49,7 @@ export default function ({
     baseURL: process.env.NODE_ENV === 'development' ? devHost : proHost,
     ...option,
     // withCredentials: !!cors,
-    withCredentials: !cors,
+    withCredentials: !!cors,
   })
     .then((res) => {
       return {

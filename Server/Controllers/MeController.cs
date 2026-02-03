@@ -12,26 +12,42 @@ public class MeController : ControllerBase
     public MeController(DataService data) => _data = data;
 
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-        // Mock: Return User 2 (Client). In real app, check Auth token/cookie.
-        // If we implemented cookie based auth in Login, we could read it here.
-        // For now, simplify for demo.
-        var u = _data.Users.FirstOrDefault(x => x.Id == 2); 
-        return Ok(u);
+        if (!int.TryParse(Request.Cookies["uid"], out int uid))
+        {
+            return Unauthorized();
+        }
+
+        var users = await _data.GetUsersAsync();
+        var u = users.FirstOrDefault(x => x.Id == uid);
+        if (u == null) return NotFound();
+        return Ok(new {
+            u.Id,
+            u.Name,
+            u.Email,
+            u.Phone,
+            u.Role
+        });
     }
 
     [HttpPut]
-    public IActionResult Update([FromBody] User u)
+    public async Task<IActionResult> Update([FromBody] User u)
     {
-        // Mock: Update User 2
-        var existing = _data.Users.FirstOrDefault(x => x.Id == 2); 
+        if (!int.TryParse(Request.Cookies["uid"], out int uid))
+        {
+            return Unauthorized();
+        }
+
+        var users = await _data.GetUsersAsync();
+        var existing = users.FirstOrDefault(x => x.Id == uid);
         if (existing != null)
         {
             existing.Name = u.Name;
             existing.Phone = u.Phone;
             existing.Email = u.Email;
-            return Ok(new { result = true });
+            var success = await _data.UpdateUserAsync(existing);
+            return Ok(new { result = success });
         }
         return Ok(new { result = false, ErrorMsg = "User not found" });
     }

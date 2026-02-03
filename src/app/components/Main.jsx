@@ -1,5 +1,5 @@
 import React from "react"
-import { withRouter, useHistory } from "react-router-dom"
+import { withRouter, useHistory, useLocation } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import { getCookie } from "../library/cookie"
 // import routes from "../routes";
@@ -24,14 +24,14 @@ const Main = (props) => {
   const classes = useStyles();
   const { open, closeProfile } = props;
   const roleFromCookie = getCookie('role')
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
 
   return (
-    // <div className={classes.main} onClick={open ? closeProfile : null}>
-    <div onClick={open ? closeProfile : null}>
+    <div onClick={open ? closeProfile : null} style={isLoginPage ? { width: '100%' } : {}}>
       {/* 限定角色入口 */}
       <ProvideAuth role={roleFromCookie}>
         <Routes />
-        {/* {routes()} */}
       </ProvideAuth>
     </div>
   );

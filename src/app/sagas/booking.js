@@ -56,10 +56,13 @@ export function* GetProjectConfirm(action) {
   yield put(setProjectConfirm(data))
 }
 
+import { getCookie } from '../library/cookie'
+
 export function* SubmitBooking(action) {
   const { items } = yield select(state => state.projectConfirm)
+  const uid = yield call(getCookie, 'uid')
   let data = {
-    user: 1,
+    user_id: parseInt(uid) || 1, // backend expected user_id (mapped from user in Postgrest)
     date: items.dateTime,
     service: items.name,
     status: 0

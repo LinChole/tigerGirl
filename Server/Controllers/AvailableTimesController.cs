@@ -11,8 +11,8 @@ public class AvailableTimesController : ControllerBase
     public AvailableTimesController(DataService data) => _data = data;
 
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-        return Ok(_data.AvailableTimes);
+        return Ok(await _data.GetAvailableTimesAsync());
     }
 }

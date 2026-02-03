@@ -1,33 +1,77 @@
 using Server.Models;
+using Postgrest.Models;
 
 namespace Server.Services;
 
 public class DataService
 {
-    public List<User> Users { get; set; } = new();
-    public List<Project> Projects { get; set; } = new();
-    public List<SubProject> SubProjects { get; set; } = new();
-    public List<Schedule> Schedules { get; set; } = new();
-    public List<ProjectTime> AvailableTimes { get; set; } = new();
-    
-    public DataService()
+    private readonly Supabase.Client _client;
+
+    public DataService(Supabase.Client client)
     {
-        // Seed Users
-        Users.Add(new User { Id = 1, Name = "Admin", Email = "admin@test.com", Role = "G", Password = "123" });
-        Users.Add(new User { Id = 2, Name = "User1", Email = "user@test.com", Role = "C", Password = "123", Phone="0912345678" });
+        _client = client;
+    }
 
-        // Seed Projects
-        Projects.Add(new Project { Id = 1, Name = "美睫嫁接", HasChildren = true });
-        Projects.Add(new Project { Id = 2, Name = "自然霧眉", HasChildren = false, Price = 5000, Duration = 120 });
+    public async Task<List<User>> GetUsersAsync()
+    {
+        var response = await _client.From<User>().Get();
+        return response.Models;
+    }
 
-        // Seed SubProjects
-        SubProjects.Add(new SubProject { Id = 1, ProjectId = 1, Name = "6D 100根", Price = 1200, Duration = 120 });
-        SubProjects.Add(new SubProject { Id = 2, ProjectId = 1, Name = "5D 100根", Price = 1100, Duration = 120 });
+    public async Task<List<Project>> GetProjectsAsync()
+    {
+        var response = await _client.From<Project>().Get();
+        return response.Models;
+    }
 
-        // Seed Times (Mock next few days)
-        var now = DateTime.Now.Date;
-        AvailableTimes.Add(new ProjectTime { DateTime = now.AddDays(1).AddHours(10).ToString("yyyy-MM-dd HH:mm") });
-        AvailableTimes.Add(new ProjectTime { DateTime = now.AddDays(1).AddHours(14).ToString("yyyy-MM-dd HH:mm") });
-        AvailableTimes.Add(new ProjectTime { DateTime = now.AddDays(2).AddHours(10).ToString("yyyy-MM-dd HH:mm") });
+    public async Task<List<SubProject>> GetSubProjectsAsync()
+    {
+        var response = await _client.From<SubProject>().Get();
+        return response.Models;
+    }
+
+    public async Task<List<Schedule>> GetSchedulesAsync()
+    {
+        var response = await _client.From<Schedule>().Get();
+        return response.Models;
+    }
+
+    public async Task<List<ProjectTime>> GetAvailableTimesAsync()
+    {
+        var response = await _client.From<ProjectTime>().Get();
+        return response.Models;
+    }
+
+    public async Task<bool> UpdateUserAsync(User user)
+    {
+        var response = await _client.From<User>().Update(user);
+        return response.Models.Count > 0;
+    }
+
+    public async Task<bool> CreateAsync<T>(T model) where T : BaseModel, new()
+    {
+        var response = await _client.From<T>().Insert(model);
+        return response.Models.Count > 0;
+    }
+
+    public async Task<bool> UpdateAsync<T>(T model) where T : BaseModel, new()
+    {
+        var response = await _client.From<T>().Update(model);
+        return response.Models.Count > 0;
+    }
+
+    public async Task<bool> DeleteAsync<T>(T model) where T : BaseModel, new()
+    {
+        await _client.From<T>().Delete(model);
+        return true;
+    }
+
+    public async Task<User?> GetUserByEmailAndPasswordAsync(string email, string password)
+    {
+        var response = await _client.From<User>()
+            .Filter("email", Postgrest.Constants.Operator.Equals, email)
+            .Filter("password", Postgrest.Constants.Operator.Equals, password)
+            .Single();
+        return response;
     }
 }

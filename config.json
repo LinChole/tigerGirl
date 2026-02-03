@@ -16,7 +16,7 @@
   "_cmt5": "API資訊",
   "devHost": "http://localhost:5241/",
   "proHost": "/",
-  "ipDevHost": "http://10.21.6.71:779",
+  "ipDevHost": "http://localhost:5241/",
   "ipProHost": "https://sso_srvdemo.cloud.ncnu.edu.tw",
   "_cmt6": "文字設定",
   "inputUnfilledPlaceholder": "未填寫",

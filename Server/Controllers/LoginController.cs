@@ -5,16 +5,16 @@ using Server.Services;
 namespace Server.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("login")]
 public class LoginController : ControllerBase
 {
     private readonly DataService _data;
     public LoginController(DataService data) => _data = data;
 
     [HttpPost]
-    public IActionResult Login([FromBody] LoginRequest req)
+    public async Task<IActionResult> Login([FromBody] LoginRequest req)
     {
-        var user = _data.Users.FirstOrDefault(u => u.Email == req.Email && u.Password == req.Password);
+        var user = await _data.GetUserByEmailAndPasswordAsync(req.Email, req.Password);
         if (user != null)
         {
             return Ok(new { result = true, role = user.Role, uid = user.Id });

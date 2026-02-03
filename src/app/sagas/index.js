@@ -15,8 +15,6 @@ import { LOCATION_CHANGE } from 'react-router-redux'
 
 import * as actions from "../actions"
 
-import * as line from './line'
-
 //取得登入者資料
 import * as me from './me';
 //Logout
@@ -41,8 +39,6 @@ export default function* rootSaga() {
   yield takeEvery(actions.LOGIN, logout.Login)
   yield takeEvery(actions.LOGOUT, logout.Logout)
 
-  //stepLine
-  yield takeEvery(actions.GET_LINE, line.GetLine)
   //首頁
   //-輪播圖片
   yield takeEvery(actions.GET_HOME_PAGE_IMAGES, slidesImages.GetHomePageImages)

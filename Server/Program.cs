@@ -8,14 +8,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<Server.Services.DataService>();
 
+// Supabase Configuration
+var supabaseUrl = builder.Configuration["Supabase:Url"];
+var supabaseKey = builder.Configuration["Supabase:Key"];
+var options = new Supabase.SupabaseOptions
+{
+    AutoConnectRealtime = true
+};
+builder.Services.AddSingleton(provider => new Supabase.Client(supabaseUrl!, supabaseKey, options));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
         builder =>
         {
-            builder.AllowAnyOrigin()
+            builder.SetIsOriginAllowed(origin => true) // allow any origin
                    .AllowAnyMethod()
-                   .AllowAnyHeader();
+                   .AllowAnyHeader()
+                   .AllowCredentials();
         });
 });
 
