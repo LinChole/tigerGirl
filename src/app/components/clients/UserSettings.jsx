@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Container,
@@ -120,8 +120,9 @@ export default function UserSettings(props) {
   const {
     fetching, items, error, pfetching,
     getMe, chgUserInfo, updateUserInfo,
-    openConfirm
+    openConfirm, openSnackbar
   } = props
+  const [isChangingPassword, setIsChangingPassword] = useState(false)
 
   useEffect(() => {
     getMe()
@@ -140,7 +141,7 @@ export default function UserSettings(props) {
               <AccountCircleIcon className={classes.icon} />
             </Avatar>
             <Typography variant="h5" className={classes.userName}>
-              {items.Name}
+              {items.name}
             </Typography>
           </Grid>
 
@@ -148,7 +149,19 @@ export default function UserSettings(props) {
 
           <form onSubmit={(e) => {
             e.preventDefault()
-            openConfirm('確定要送出了嗎？', () => updateUserInfo())
+            if (isChangingPassword) {
+              const { password, confirmPassword } = items
+              if (!password) {
+                return openSnackbar('請輸入新密碼')
+              }
+              if (password !== confirmPassword) {
+                return openSnackbar('密碼與確認密碼不一致')
+              }
+            }
+            openConfirm('確定要送出了嗎？', () => {
+              updateUserInfo()
+              setIsChangingPassword(false)
+            })
           }}
             onKeyPress={(e) => {
               e.charCode === 13 && e.preventDefault()
@@ -157,8 +170,8 @@ export default function UserSettings(props) {
               <Grid item xs={12}>
                 <TextField
                   label="姓名"
-                  name="Name"
-                  value={items.Name}
+                  name="name"
+                  value={items.name || ''}
                   onChange={e => chgUserInfo(e.target.name, e.target.value)}
                   fullWidth
                   required
@@ -168,12 +181,11 @@ export default function UserSettings(props) {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="手機號碼"
-                  name="Phone"
-                  value={items.Phone}
+                  label="手機"
+                  name="phone"
+                  value={items.phone || ''}
                   onChange={e => chgUserInfo(e.target.name, e.target.value)}
                   fullWidth
-                  disabled
                   variant="outlined"
                   className={classes.textField}
                 />
@@ -181,8 +193,8 @@ export default function UserSettings(props) {
               <Grid item xs={12}>
                 <TextField
                   label="Email"
-                  name="Email"
-                  value={items.Email}
+                  name="email"
+                  value={items.email || ''}
                   onChange={e => chgUserInfo(e.target.name, e.target.value)}
                   fullWidth
                   required
@@ -191,6 +203,50 @@ export default function UserSettings(props) {
                 />
               </Grid>
               <Grid item xs={12}>
+                <Grid container spacing={1} alignItems="flex-end">
+                  <Grid item xs>
+                    <TextField
+                      label="新密碼"
+                      name="password"
+                      type="password"
+                      value={items.password || ''}
+                      onChange={e => chgUserInfo(e.target.name, e.target.value)}
+                      fullWidth
+                      variant="outlined"
+                      className={classes.textField}
+                      placeholder={isChangingPassword ? "請輸入新密碼" : "已鎖定"}
+                      disabled={!isChangingPassword}
+                    />
+                  </Grid>
+                  {!isChangingPassword && (
+                    <Grid item>
+                      <Button
+                        variant="outlined"
+                        onClick={() => setIsChangingPassword(true)}
+                        style={{ height: '56px', borderRadius: '12px', borderColor: '#5998CA', color: '#5998CA' }}
+                      >
+                        修改密碼
+                      </Button>
+                    </Grid>
+                  )}
+                </Grid>
+              </Grid>
+              {isChangingPassword && (
+                <Grid item xs={12}>
+                  <TextField
+                    label="確認新密碼"
+                    name="confirmPassword"
+                    type="password"
+                    value={items.confirmPassword || ''}
+                    onChange={e => chgUserInfo(e.target.name, e.target.value)}
+                    fullWidth
+                    variant="outlined"
+                    className={classes.textField}
+                    placeholder="請再次輸入新密碼"
+                  />
+                </Grid>
+              )}
+              {/* <Grid item xs={12}>
                 <TextField
                   label="生日"
                   name="Birthday"
@@ -203,8 +259,8 @@ export default function UserSettings(props) {
                   InputLabelProps={{ shrink: true }}
                   className={classes.textField}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid> */}
+              {/* <Grid item xs={12}>
                 <TextField
                   label="備註 / 偏好"
                   name="Note"
@@ -216,7 +272,7 @@ export default function UserSettings(props) {
                   minRows={3}
                   className={classes.textField}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
 
             <div className={classes.actions}>

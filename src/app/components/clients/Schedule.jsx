@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
     Container,
@@ -140,10 +140,43 @@ const useStyles = makeStyles((theme) => ({
         color: "#7C84A4",
         marginBottom: theme.spacing(3),
     },
+    filterBar: {
+        display: "flex",
+        gap: theme.spacing(1),
+        marginBottom: theme.spacing(3),
+        flexWrap: "wrap",
+    },
+    filterChip: {
+        borderRadius: 20,
+        fontWeight: 500,
+        cursor: "pointer",
+        border: "2px solid #97BCEE",
+        color: "#7C84A4",
+        background: "transparent",
+        "&:hover": {
+            background: "rgba(89, 152, 202, 0.1)",
+        },
+    },
+    filterChipActive: {
+        borderRadius: 20,
+        fontWeight: 600,
+        cursor: "pointer",
+        border: "2px solid transparent",
+        color: "#fff",
+        background: "linear-gradient(135deg, #5998CA 0%, #CD75CE 100%)",
+    },
 }));
+
+const FILTERS = [
+    { label: '未完成', value: 0 },
+    { label: '已完成', value: 1 },
+    { label: '已取消', value: 2 },
+    { label: '全部',   value: null },
+]
 
 function Schedule(props) {
     const classes = useStyles();
+    const [filterStatus, setFilterStatus] = useState(0)
     const {
         fetching, items, error, pfetching,
         getSchedule, cancelSchedule,
@@ -153,6 +186,10 @@ function Schedule(props) {
     useEffect(() => {
         getSchedule()
     }, []);
+
+    const filteredItems = filterStatus === null
+        ? items
+        : items.filter(d => d.status === filterStatus)
 
     const getStatusClass = (status) => {
         switch (status) {
@@ -179,9 +216,20 @@ function Schedule(props) {
                     </Button>
                 </Box>
 
-                {items && items.length > 0 ? (
+                <Box className={classes.filterBar}>
+                    {FILTERS.map(f => (
+                        <Chip
+                            key={f.label}
+                            label={f.label}
+                            className={filterStatus === f.value ? classes.filterChipActive : classes.filterChip}
+                            onClick={() => setFilterStatus(f.value)}
+                        />
+                    ))}
+                </Box>
+
+                {filteredItems && filteredItems.length > 0 ? (
                     <Grid container spacing={3}>
-                        {items.map((d, i) => (
+                        {filteredItems.map((d, i) => (
                             <Grid item xs={12} md={6} key={i}>
                                 <Card className={classes.card} elevation={0}>
                                     <Box className={classes.cardHeader}>
@@ -203,7 +251,7 @@ function Schedule(props) {
                                     <Box className={classes.infoRow}>
                                         <EventIcon className={classes.icon} />
                                         <Typography className={classes.label}>預約時間：</Typography>
-                                        <Typography className={classes.value}>{d.date}</Typography>
+                                        <Typography className={classes.value}>{d.date} {d.time}</Typography>
                                     </Box>
 
                                     {d.status === 0 && (

@@ -5,7 +5,7 @@
   "main": "webpack.dev.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --progress --colors --config webpack.dev.js ",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && webpack-dev-server --progress --colors --config webpack.dev.js ",
     "server": "json-server --watch db.json --port 6006",
     "build": "set NODE_OPTIONS=--openssl-legacy-provider && webpack --progress --colors --config webpack.prod.js"
   },
@@ -14,6 +14,8 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "autoprefixer": "^9.8.6",
@@ -49,6 +51,7 @@
     "@material-ui/icons": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/pickers": "^3.3.11",
+    "@supabase/supabase-js": "^1.35.7",
     "classnames": "^2.2.6",
     "core-js": "^3.8.0",
     "date-fns": "^2.30.0",

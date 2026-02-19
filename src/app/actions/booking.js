@@ -34,6 +34,13 @@ export const setProjectDateTime = (items, error = '') => action(SET_PROJECT_DATE
 export const SELECT_DATETIME = 'SELECT_DATETIME'
 export const selectDateTime = (id) => action(SELECT_DATETIME, { id })
 
+// 計算可選時間段
+export const GET_AVAILABLE_TIMES = 'GET_AVAILABLE_TIMES'
+export const getAvailableTimes = (date) => action(GET_AVAILABLE_TIMES, { date })
+
+export const SET_AVAILABLE_TIMES = 'SET_AVAILABLE_TIMES'
+export const setAvailableTimes = (times, error = '') => action(SET_AVAILABLE_TIMES, { times, error })
+
 // 確認預約資料
 export const GET_PROJECT_CONFIRM = 'GET_PROJECT_CONFIRM'
 export const getProjectConfirm = () => action(GET_PROJECT_CONFIRM)

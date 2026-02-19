@@ -56,6 +56,8 @@ export default function* rootSaga() {
   yield takeEvery(actions.GET_SUBPROJECT, booking.GetSubproject)
   //取得可選日期時間
   yield takeEvery(actions.GET_PROJECT_DATETIME, booking.GetProjectDateTime)
+  // 點選日期後計算可用時間段
+  yield takeLatest(actions.GET_AVAILABLE_TIMES, booking.GetAvailableTimes)
   //確認預約資料
   yield takeEvery(actions.GET_PROJECT_CONFIRM, booking.GetProjectConfirm)
   // 送出預約內容

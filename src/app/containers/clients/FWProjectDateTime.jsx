@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import ProjectDateTime from "../../components/clients/ProjectDateTime"
 import {
-  getProjectDateTime, selectDateTime
+  getProjectDateTime, getAvailableTimes, selectDateTime
 } from "../../actions/booking"
 
 
@@ -11,5 +11,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-  getProjectDateTime, selectDateTime
+  getProjectDateTime, getAvailableTimes, selectDateTime
 })(ProjectDateTime)

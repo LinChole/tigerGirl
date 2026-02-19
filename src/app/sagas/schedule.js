@@ -1,30 +1,57 @@
-import { put, call, select, take } from 'redux-saga/effects'
-import axiosProps from '../library/api'
+import { put, call } from 'redux-saga/effects'
+import { supabase } from '../library/supabaseClient'
 import { getCookie } from "../library/cookie"
 import {
-    setSchedule, successCancelSchedule, finshCancelSchedule
+    getSchedule,
+    setSchedule,
+    successCancelSchedule, finshCancelSchedule
 } from '../actions/schedule'
 
 export function* GetSchedule(action) {
-    const uid = yield call(getCookie, 'uid')
-    const json = yield call(axiosProps, {
-        cmd: `schedules`,
-        data: {
-            user: uid
-        }
-    })
-    const { ok, status, body } = json
-    if (ok && status === 200) yield put(setSchedule(body))
-    else yield put(setSchedule([], body.title))
+    const token = getCookie('token')
+    if (!token) {
+        yield put(setSchedule([]))
+        return
+    }
+
+    // 先用 token 查出 user 的 id
+    const { data: userData } = yield call(
+        () => supabase
+            .from('users')
+            .select('id')
+            .eq('token', token)
+    )
+
+    if (!userData || userData.length === 0) {
+        yield put(setSchedule([]))
+        return
+    }
+
+    const userId = userData[0].id
+
+    // 用 user id 查 schedules
+    const { data, error } = yield call(
+        () => supabase
+            .from('schedules')
+            .select('*')
+            .eq('sid', userId)
+    )
+
+    if (!error && data) yield put(setSchedule(data))
+    else yield put(setSchedule([]))
 }
 
 export function* CancelSchedule(action) {
-    const json = yield call(axiosProps, {
-        cmd: `schedules/${action.oid}`,
-        method: 'DELETE'
-    })
-    const { ok, status, body } = json
-    console.log(json)
-    if (ok && status === 200 && body.result) yield put(successCancelSchedule(action.oid))
-    else yield put(finshCancelSchedule(body.ErrorMsg))
+    const { error } = yield call(
+        () => supabase
+            .from('schedules')
+            .delete()
+            .eq('id', action.oid)
+    )
+
+    if (!error) {
+        yield put(successCancelSchedule(action.oid))
+        yield put(getSchedule())
+    } else yield put(finshCancelSchedule(error.message))
 }
+

@@ -103,11 +103,25 @@ function stepContent(step) {
 export default function Bookings(props) {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
-  const { pfetching, error, submitBooking } = props
+  const {
+    pfetching,
+    items,
+    error,
+    project, subproject, projectDateTime,
+    submitBooking } = props
   const steps = ["選擇服務項目", "選擇日期與時間", "確認預約內容"]
 
   const handleNext = () => setActiveStep((prev) => prev + 1)
   const handleBack = () => setActiveStep((prev) => prev - 1)
+  console.log(activeStep)
+  const isNextDisabled = () => {
+    if (activeStep === 0) {
+      return subproject.items.length !== 0 && !subproject.items.some(item => item.selected) || !project.items.some(item => item.selected) && !pfetching
+    }
+    if (activeStep === 1) {
+      return !props.projectDateTime.times.some(item => item.selected) && !pfetching
+    }
+  }
 
   return (
     <Box className={classes.root}>
@@ -140,6 +154,7 @@ export default function Bookings(props) {
           <Button
             variant="contained"
             className={classes.nextButton}
+            disabled={isNextDisabled()}
             onClick={activeStep === steps.length - 1 ? submitBooking : handleNext}
           >
             {activeStep === steps.length - 1 ? "完成預約" : "下一步"}

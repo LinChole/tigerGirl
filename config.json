@@ -25,5 +25,8 @@
   "tdDisabledClassname": "w3-center w3-disabled w3-opacity-off",
   "inputDisabledIpClassname": "w3-display-container w3-opacity-max w3-hover-opacity fw-c-pointer",
   "inputGroupClassname": "fw-input-warning w3-yellow",
-  "inputInlineClassname": "w3-show-inline-block"
+  "inputInlineClassname": "w3-show-inline-block",
+  "_cmt7": "Supabase設定",
+  "supabaseUrl": "https://uxvjkexdgeutsffchuqj.supabase.co",
+  "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4dmprZXhkZ2V1dHNmZmNodXFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwODk2MjQsImV4cCI6MjA4NTY2NTYyNH0.mQ_mBtI7TYvQxeUuY1kDAR5v8Ly25HR5GPVMnv4xGik"
 }

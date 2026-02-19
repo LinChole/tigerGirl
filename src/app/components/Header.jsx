@@ -97,19 +97,18 @@ export default function Header(props) {
         <div className={classes.spacer} />
         {/* Navigation */}
         <Box>
-          <Button className={classes.navButton} component={Link} to={`${items.Role === 'C' ? '/' : '/admin'}`} >首頁</Button>
+          <Button className={classes.navButton} component={Link} to={`${items.role === 'C' ? '/' : '/admin'}`} >首頁</Button>
           {/* <Button className={classes.navButton} component={Link} to='/'>服務項目</Button> */}
           {/* <Button className={classes.navButton} component={Link} to='/login'>作品集</Button> */}
-          {items.Name ? (
+          {items.name ? (
             <>
-              {items.Role === 'C' && (
+              {items.role === 'C' && (
                 <>
                   <Button className={classes.navButton} component={Link} to='/schedule'>我的預約</Button>
                   <Button className={classes.navButton} component={Link} to='/settings'>會員中心</Button>
-                  <Button className={classes.navButton} onClick={logout} color='primary'>登出</Button>
                 </>)
               }
-
+              <Button className={classes.navButton} onClick={logout} color='primary'>登出</Button>
             </>
           ) : (
             <Button component={Link} to='/login' color='primary'>登入</Button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import {
   Typography,
@@ -65,12 +65,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const duration = (d, h, m) => {
-  const dd = d ? `${d}天` : ''
-  const hh = h ? `${h}小時` : ''
-  const mm = m ? `${m}分鐘` : ''
-  return `${dd}${hh}${mm}`
-}
 
 function Base(props) {
   const classes = useStyles();
@@ -82,13 +76,13 @@ function Base(props) {
         <CardContent className={classes.cardContent}>
           {isSelected && <CheckCircleIcon className={classes.checkIcon} />}
           <Typography variant="h6" className={classes.serviceName}>
-            {data.Name}
+            {data.name}
           </Typography>
           <Typography variant="body2" className={classes.duration}>
-            ⏱️ {duration(data.DD, data.HH, data.MM)}
+            ⏱️ {data.duration} 分
           </Typography>
           <Typography variant="h6" className={classes.price}>
-            NT$ {data.Price}
+            NT$ {data.price}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -98,7 +92,6 @@ function Base(props) {
 
 export default function Project(props) {
   const classes = useStyles()
-  const [show, setShow] = useState(false);
   const {
     fetching, items, error, pfetching,
     subproject,
@@ -110,9 +103,8 @@ export default function Project(props) {
     getProject()
   }, [])
 
-  const projectHandler = (id, show) => {
-    setShow(show)
-    if (show) getSubproject(id)
+  const projectHandler = (id) => {
+    getSubproject(id)
   }
 
   return (
@@ -125,19 +117,19 @@ export default function Project(props) {
           <Grid
             item xs={12} sm={6} md={4} lg={3}
             key={i}
-            onClick={() => projectHandler(d.id, d.subporject)}>
+            onClick={() => projectHandler(d.id)}>
             <Base data={d} select={selectProject} isSelected={d.selected} />
           </Grid>
         ))}
       </Grid>
-      {show && (
+      {subproject.items.length > 0 && (
         <div>
           <Divider className={classes.divider} />
           <Typography variant="h5" className={classes.sectionTitle}>
             選擇項目內容
           </Typography>
           <Grid container spacing={3}>
-            {subproject.items.map((d, i) => (
+            {subproject.items.sort((a, b) => a.id - b.id).map((d, i) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
                 <Base data={d} select={selectSubproject} isSelected={d.selected} />
               </Grid>

@@ -5,9 +5,9 @@ import {
   Typography,
   Grid,
   Box,
-  Chip
 } from "@material-ui/core";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,37 +59,77 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProjectDateTime(props) {
   const classes = useStyles()
+  const [selectedDate, setSelectedDate] = useState(null)
   const {
-    fetching, items, error, pfetching,
-    getProjectDateTime, selectDateTime
+    fetching, items, times,
+    getProjectDateTime, getAvailableTimes, selectDateTime
   } = props
 
   useEffect(() => {
     getProjectDateTime()
   }, [])
 
+  // 從 items 取出不重複的日期並排序
+  const dates = [...new Set(items.map(d => d.date))].sort()
+
+  const handleDateSelect = (date) => {
+    setSelectedDate(date)
+    getAvailableTimes(date)
+  }
+
   return (
     <Box mt={2}>
       <Typography variant="h5" className={classes.sectionTitle}>
-        選擇預約時間
+        選擇預約日期
       </Typography>
       <Typography variant="body1" className={classes.subtitle}>
-        <AccessTimeIcon style={{ fontSize: 18, verticalAlign: "middle", marginRight: 8 }} />
-        請選擇您方便的時段
+        <CalendarTodayIcon style={{ fontSize: 18, verticalAlign: "middle", marginRight: 8 }} />
+        請選擇預約日期
       </Typography>
       <Grid container>
-        {items.map((d, i) => (
+        {dates.map((date, i) => (
           <Grid item key={i}>
             <Button
-              variant={d.selected ? "contained" : "outlined"}
-              className={d.selected ? classes.timeButtonSelected : classes.timeButton}
-              onClick={() => selectDateTime(d.id)}
+              variant={selectedDate === date ? "contained" : "outlined"}
+              className={selectedDate === date ? classes.timeButtonSelected : classes.timeButton}
+              onClick={() => handleDateSelect(date)}
             >
-              {d.dateTime}
+              {date}
             </Button>
           </Grid>
         ))}
       </Grid>
+
+      {selectedDate && (
+        <Box mt={3}>
+          <Typography variant="h5" className={classes.sectionTitle}>
+            選擇預約時間
+          </Typography>
+          <Typography variant="body1" className={classes.subtitle}>
+            <AccessTimeIcon style={{ fontSize: 18, verticalAlign: "middle", marginRight: 8 }} />
+            請選擇您方便的時段
+          </Typography>
+          <Grid container>
+            {fetching ? (
+              <Typography variant="body2" className={classes.subtitle}>計算可用時段中...</Typography>
+            ) : times.length === 0 ? (
+              <Typography variant="body2" className={classes.subtitle}>此日期無可用時段</Typography>
+            ) : (
+              times.map((d, i) => (
+                <Grid item key={i}>
+                  <Button
+                    variant={d.selected ? "contained" : "outlined"}
+                    className={d.selected ? classes.timeButtonSelected : classes.timeButton}
+                    onClick={() => selectDateTime(d.id)}
+                  >
+                    {d.time}
+                  </Button>
+                </Grid>
+              ))
+            )}
+          </Grid>
+        </Box>
+      )}
     </Box>
   )
 }

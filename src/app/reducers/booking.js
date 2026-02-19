@@ -12,6 +12,9 @@ import {
   //取得可選日期時間
   GET_PROJECT_DATETIME,
   SET_PROJECT_DATETIME,
+  // 計算可選時間段
+  GET_AVAILABLE_TIMES,
+  SET_AVAILABLE_TIMES,
   // 選擇日期時間
   SELECT_DATETIME,
   // 確認預約資料
@@ -104,37 +107,53 @@ export function subproject(state = initialState, action) {
   }
 }
 
-export function projectDateTime(state = initialState, action) {
+const dateTimeInitialState = {
+  fetching: false,
+  pfetching: false,
+  items: [],   // 可選日期 [{id, date}]
+  times: [],   // 計算後的可選時間段 [{id, time, selected}]
+  error: ''
+}
+
+export function projectDateTime(state = dateTimeInitialState, action) {
   switch (action.type) {
     case GET_PROJECT_DATETIME:
       return {
         ...state,
         fetching: true,
         items: [],
+        times: [],
         error: ''
       }
     case SET_PROJECT_DATETIME:
       return {
         ...state,
         fetching: false,
-        items: action.items.map(d => ({
-          ...d,
-          selected: false
-        })),
+        items: action.items,
+        error: action.error
+      }
+    case GET_AVAILABLE_TIMES:
+      return {
+        ...state,
+        fetching: true,
+        times: [],
+        error: ''
+      }
+    case SET_AVAILABLE_TIMES:
+      return {
+        ...state,
+        fetching: false,
+        times: action.times.map(d => ({ ...d, selected: false })),
         error: action.error
       }
     case SELECT_DATETIME:
       return {
         ...state,
-        items: state.items.map(d =>
+        times: state.times.map(d =>
           d.id === action.id ?
-            ({
-              ...d,
-              selected: !d.selected
-            }) : {
-              ...d,
-              selected: false
-            })
+            ({ ...d, selected: !d.selected }) :
+            { ...d, selected: false }
+        )
       }
     default:
       return state
