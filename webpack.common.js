@@ -170,7 +170,7 @@ const config = mode => {
       }),
       // 自動生成.html檔案
       new HtmlWebpackPlugin({
-        title: 'Project Website',
+        title: 'TigerMiss',
         template: 'src/public/index.html',
         inject: true
         // minify: {
